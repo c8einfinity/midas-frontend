@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+
+        <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Html\Link" name="top_left_info" template="Magento_Theme::account/link/top_left_info.phtml" before="-" />
+
+            <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links</argument>
+                </arguments>
+            </block>
+
+        </referenceContainer>
+
+         <referenceBlock name="header.links">
+		<block class="Magento\Framework\View\Element\Html\Link" name="contact_us" template="Magento_Theme::account/link/contact_us.phtml" before="customer" />
+            	<block class="Magento\Framework\View\Element\Html\Link" name="social_links" template="Magento_Theme::account/link/social_links.phtml" after="-" />
+
+            	<block class="Magento\Customer\Block\Account\Customer" name="customer" template="Magento_Customer::account/customer.phtml" before="authorization-link-login" /> 
+           	<block class="Magento\Customer\Block\Account\AuthorizationLink" name="authorization-link-login" template="Magento_Customer::account/link/authorization.phtml" before="contact_us" > 
+                	<arguments>
+                    		<argument name="sortOrder" xsi:type="number">10</argument>
+                	</arguments>
+            	</block> 
+
+        </referenceBlock>
+
+        <move element="header" destination="header.links" before="-" />
+        <move element="register-link" destination="header.links" before="social_links" /> 
+        <move element="top.links" destination="customer" />
+	<!-- <move element="authorization-link" destination="top.links" after="-" /> -->
+
+	<referenceBlock name="catalog.topnav" remove="true"/>
+
+	<referenceBlock name="store.menu">
+ 	   <block class="Magento\Theme\Block\Html\Topmenu" name="catalog.topnav.fix" template="Magento_Theme::html/topmenu.phtml" before="-" />
+	</referenceBlock>	
+
+        <referenceContainer name="header-wrapper">
+
+        	<block class="Magento\Framework\View\Element\Template" name="mobile.menu" template="Magento_Theme::html/mobilemenu.phtml" before="-" />
+
+<!--
+        <block class="Magento\Framework\View\Element\Template" name="top.search" as="topSearch" template="Magento_Theme::Magento_Search/templates/form.mini.phtml"/>
+             <block class="Magento\Checkout\Block\Cart\Sidebar" name="minicart" as="minicart" after="logo" template="Magento_Theme::Magento_Checkout/templates/cart/minicart.phtml" />
+             <block class="Magento\Wishlist\Block\Link" name="wish-list-link-custom" after="minicart" template="Magento_Theme::account/link/wishlist.phtml" />
+             <block class="Magento\Framework\View\Element\Template" name="catalog.compare.link" before="-" template="Magento_Catalog::product/compare/link.phtml" />
+-->
+
+        </referenceContainer>
+
+        <referenceBlock name="store.links" remove="true" />
+        <referenceBlock name="store.settings" remove="true" />
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="absolute_footer" remove="true"/>
+<!-- <referenceBlock name="catalog.topnav" remove="true"/> -->
+        <referenceContainer name="footer-container" remove="true"/>
+
+
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Theme\Block\Html\Header" name="midas_footer" template="Magento_Theme::midas_footer.phtml"  />
+        </referenceContainer>
+
+    </body>
+</page>

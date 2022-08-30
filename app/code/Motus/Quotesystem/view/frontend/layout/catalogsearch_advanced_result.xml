@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Catalog Advance Search View layout
+ */ -->
+ <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+     <head>
+         <css src="Motus_Quotesystem::css/quotesystem.css"/>
+     </head>
+     <body>
+         <referenceContainer name="content">
+             <block class="Motus\Quotesystem\Block\Product\ListProduct" name="quoteAdvanceSearch.list" ifconfig="quotesystem/mot_quotesystemsetting/mot_quotesystemenabledisable" template="Motus_Quotesystem::catalog/list.phtml" />
+         </referenceContainer>
+     </body>
+ </page>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <quotesystem>
+            <mot_quotesystemsetting>
+                <discount_enable>0</discount_enable>
+                <allowed_type>gif,jpg,png,jpeg,pdf,doc,zip</allowed_type>
+                <allowed_add_to_cart>1</allowed_add_to_cart>
+                <allowed_showprice>1</allowed_showprice>
+                <min_quote_qty>1</min_quote_qty>
+            </mot_quotesystemsetting>
+            <email>
+                <new_quote>quotesystem_email_new_quote</new_quote>
+                <quote_status>quotesystem_email_quote_status</quote_status>
+                <quote_message>quotesystem_email_quote_message</quote_message>
+                <quote_edit>quotesystem_email_quote_edit</quote_edit>
+            </email>
+        </quotesystem>
+    </default>
+</config>

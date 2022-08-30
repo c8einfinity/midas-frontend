@@ -1,0 +1,346 @@
+<?php
+/**
+ * Quote list at buyer end
+ */
+?>
+ <head>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+    <?php
+    $quoteHelper = $block->getHelper();
+
+    $filter = '';
+    $filterSorting = '';
+    $filterSortingType = 'Inc';
+    $filterStatus = 0;
+    $data = $block->getRequest()->getParams();
+    $baseCurrency = $quoteHelper->getBaseCurrencyCode();
+    $storeCurrency = $quoteHelper->getCurrentCurrency();
+    if ($proName = $block->getRequest()->getParam('s')) {
+        $filter = $proName != "" ? $proName : "";
+    }
+    if (isset($data['status'])) {
+        $filterStatus = $data['status'] != "" ? $data['status'] : 0;
+    }
+    if (isset($data['sortingStatus'])) {
+        $filterSorting = $data['sortingStatus'];
+    }
+    if (isset($data['sortingType'])) {
+        $filterSortingType = $data['sortingType'];
+    }
+
+    ?>
+ <div class="table-wrapper mot-quote-buyer-list">
+    <form action="<?=
+        $block->escapeHtml(
+            $block->getUrl(
+                'quotesystem/buyerquote/view/',
+                ['quote_id' => $block->getQuoteId(), '_secure' => $block->getRequest()->isSecure()]
+            )
+        )?>" method="get" id="form-productlist-filter"  name="formProductlistFilter" data-mage-init='{"validation":{}}'>
+        <table cellspacing="0" class="data table table-order-items history">
+            <thead>
+                <tr id="mot_mp_tr_heading">
+                <th scope="col" class="col productName">
+                    <span><?= /* @noEscape */ __('Product Name') ?></span>
+                </th>
+                <th scope="col" class="col status">
+                    <span><?= /* @noEscape */ __('Status') ?></span>
+                </th>
+                <th>
+                    <span>&nbsp;</span>
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-th="Product Name" class="col productName">
+                        <input type="text" class="input-text" name="s"
+                        placeholder='<?= /* @noEscape */__('Search by product name') ?>'
+                        value="<?= $block->escapeHtml($filter)?>"/>
+                    </td>
+                    <input type="hidden" id="sortingStatus" name="sortingStatus"
+                    value="<?= $block->escapeHtml($filterSorting); ?>">
+                    <input type="hidden" id="sortingType" name="sortingType"
+                    value="<?= $block->escapeHtml($filterSortingType); ?>">
+                    <td data-th="Product Status" class="col status">
+                        <select name="status">
+                            <option value="" <?php if ($filterStatus == 0) {
+/* @escapeNotVerified */echo 'selected="selected"';
+                                             }?>><?= /* @noEscape */ __('All') ?></option>
+                            <option value="1" <?php if ($filterStatus == 1) {
+                                echo 'selected="selected"';
+                                              }?>>
+                                <?= /* @noEscape */ __('Pending') ?>
+                            </option>
+                            <option value="2" <?php if ($filterStatus == 2) {
+                                echo 'selected="selected"';
+                                              }?>>
+                                <?= /* @noEscape */ __('Approved') ?>
+                            </option>
+                            <option value="3" <?php if ($filterStatus == 3) {
+/* @escapeNotVerified */echo 'selected="selected"';
+                                              }?>>
+                                <?= /* @noEscape */ __('Declined') ?>
+                            </option>
+                            <option value="4" <?php if ($filterStatus == 4) {
+/* @escapeNotVerified */echo 'selected="selected"';
+                                              }?>>
+                                <?= /* @noEscape */ __('Sold') ?>
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="button" id="save" title="Save" type="submit">
+                            <span><span><span><?= /* @noEscape */ __('Submit') ?></span></span></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <?php if (count($block->getQuotesCollection())==0): ?>
+        <div class="fieldset mot_fieldset">
+            <div class="mot_emptymsg">
+                <?= /* @noEscape */ __('No Quotes Available') ?>
+            </div>
+        </div>
+    <?php else: ?>
+        <form action="<?= $block->escapeUrl($block->getUrl(
+            'quotesystem/buyerquote/massdeletequote'
+        )) ?>"
+        method="post"
+        id="formmassdelete"
+        name="formmassdelete">
+        <?= $block->getBlockHtml('formkey')?>
+            <button class="button mot-btn"
+                title="<?= /* @noEscape */ __('Delete Quotes') ?>"
+                type="submit"
+                id="mass_delete_butn"
+            >
+                <span><span>
+                    <?= /* @noEscape */ __('Delete Quotes') ?>
+                </span></span>
+            </button>
+            <span><span>
+            <a class="quote_view" aria-hidden="true"
+                                    title="<?= $block->escapeHtml(__('Print Quote'))?>"
+                                    href = "<?= $block->escapeUrl($block->getUrl(
+                                        'quotesystem/buyerquote/printPdf/',
+                                        [
+                                            'quote_id'=>$block->getQuoteId(),
+                                            '_secure' => $block->getIsSecure()
+                                        ]
+                                    )) ?>"
+                                    login-url = "<?= $block->escapeUrl($block->getUrl('customer/account/login')); ?>">
+                <?= /* @noEscape */ __('Print Quote') ?>
+            </a>
+            </span></span>
+            <table cellspacing="0" class="data mot_quotelist_table table table-order-items history">
+                <thead>
+                    <tr>
+                        <th class="mot_check_first_td">
+                            <span>
+                                <input type="checkbox" name="quoteselecctall" value="all" id="quoteselecctall"/>
+                            </span>
+                        </th>
+                        <th scope="col" class="mot_check_first_td">
+                            <?= /* @noEscape */ __('Item Id')?>
+                        </th>
+                        <th scope="col" class="col productName sort">
+                        <i class="<?= $block->escapeHtml($block->nameClass); ?>" type="productName"
+                            sortingType="<?= $block->escapeHtml($filterSortingType); ?>"
+                            name="productName" aria-hidden="true"></i>
+                            <?= /* @noEscape */ __('Product Name')?>
+                        </th>
+                        <th scope="col" class="col productQty sort">
+                        <i class="<?= $block->escapeHtml($block->quantityClass); ?> sorting" type="productQuantity"
+                            sortingType="<?= $block->escapeHtml($filterSortingType); ?>"
+                            name="productQuantity" aria-hidden="true"></i>
+                            <?= /* @noEscape */ __('Quantity')?>
+                        </th>
+                        <th scope="col" class="col productPrice sort">
+                        <i class="<?= $block->escapeHtml($block->priceClass); ?> sorting" type="productPrice"
+                        sortingType="<?= $block->escapeHtml($filterSortingType); ?>"
+                        name="productPrice" aria-hidden="true"></i>
+                                <?= /* @noEscape */ __('Quote Price')?>
+                        </th>
+                        <th scope="col" class="col motstatus">
+                            <?= /* @noEscape */ __('Status')?>
+                        </th>
+                        <th scope="col" class="col motdate">
+                        <span><?= /* @noEscape */ __('Date') ?></span>
+                        </th>
+                        <th scope="col" class="col motactions">
+                            <?= /* @noEscape */ __('Action')?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 0;
+                    foreach ($block->getQuotesCollection() as $quote):
+                        $currency = $quote->getQuoteCurrency() ? $quote->getQuoteCurrency() : $baseCurrency;
+                        ?>
+                        <tr>
+                            <input type="hidden" class="id" value="<?= $block->escapeHtml($quote->getEntityId()); ?>"/>
+                            <td data-th="Select" class="col massDelete">
+                                <span>
+                                    <?php if ($block->quoteStatusIsNotSold($quote->getStatus())) { ?>
+                                        <input type="checkbox" name="quote_mass_delete[]" class="quotecheckbox"
+                                        value="<?= $block->escapeHtml($quote->getEntityId()); ?>"/>
+                                    <?php } ?>
+                                </span>
+                            </td>
+                            <td data-th="Quote Id" class="col body quoteId">
+                                <span class="label">
+                                <?= $block->escapeHtml($quote->getEntityId()); ?>
+                                </span>
+                            </td>
+                            <td data-th="Product Name" class="col body productName">
+                                <span class="label">
+                                    <?php $product = $quoteHelper->getProduct($quote->getProductId());
+                                    if ($quoteHelper->checkProductCanShowOrNot($product)): ?>
+                                        <a href="<?= $block->escapeUrl($product->getProductUrl())?>" target="blank">
+                                        <?= $block->escapeHtml($product->getName()); ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <?= $block->escapeHtml($quote->getProductName()); ?>
+                                    <?php endif;?>
+                                </span>
+                            </td>
+                            <td data-th="Product Quantity" class="col productQty">
+                                <span class="label qty">
+                                <?= $block->escapeHtml($quote->getQuoteQty()); ?>
+                                </span>
+                            </td>
+                            <td data-th="Product Price" class="col productPrice">
+                                <span class="label">
+                                    <input type="hidden"
+                                    class="mot_qs_quote_price"
+                                    value="<?= $block->escapeHtml($quote->getQuotePrice()); ?>">
+                                    <?= /* @noEscape */$quoteHelper->getFormatPrice(
+                                        $quoteHelper->getmotconvertCurrency(
+                                            $currency,
+                                            $storeCurrency,
+                                            $quote->getQuotePrice()
+                                        ),
+                                        $storeCurrency
+                                    ); ?>
+                                </span>
+                            </td>
+                            <td data-th="Status" class="col motstatus">
+                                <span class="label pro_status">
+                                    <?php
+                                        $statusDecline = \Motus\Quotesystem\Model\Quotes::STATUS_DECLINE;
+                                        $statusUnapproved = \Motus\Quotesystem\Model\Quotes::STATUS_UNAPPROVED;
+                                        $statusApproved = \Motus\Quotesystem\Model\Quotes::STATUS_APPROVED;
+                                    ?>
+                                    <?php if (!$product->getSku()) { ?>
+                                        <span class="label mot_prod_del">
+                                            <?= /* @noEscape */ __("Product doesn't exist anymore")?>
+                                        </span>
+                                    <?php } elseif ($quote->getStatus() == $statusDecline) { ?>
+                                        <span class="label mot_qs_status_decline">
+                                            <?= /* @noEscape */ __('Declined')?>
+                                        </span>
+                                    <?php } elseif ($quote->getStockstatus() != "1") { ?>
+                                        <span class="label mot_qs_status_outofstock">
+                                            <?= /* @noEscape */ __('Out of Stock')?>
+                                        </span>
+                                    <?php } elseif ($product->getStatus() == "2") { ?>
+                                        <span class="label mot_not_available">
+                                            <?= /* @noEscape */ __('Not Available')?>
+                                        </span>
+                                    <?php } elseif ($quote->getStatus() == $statusUnapproved) { ?>
+                                        <span class="label mot_qs_status_pending">
+                                            <?= /* @noEscape */ __('Pending')?>
+                                        </span>
+                                    <?php } elseif ($quote->getStatus() == $statusApproved) { ?>
+                                         <button class="button btn-cart" type="button">
+                                            <span><span>
+                                                <span> <?= /* @noEscape */ __("Add To Cart"); ?> </span>
+                                            </span></span>
+                                        </button>
+                                        <span class="label mot_qs_status_pending">
+                                            <?= /* @noEscape */ __('Approved')?>
+                                        </span>
+                                  <?php } else { ?>
+                                        <span class="label mot_qs_status_sold">
+                                            <?= /* @noEscape */ __('Sold')?>
+                                        </span>
+                                    <?php } ?>
+                                </span>
+                            </td>
+                            <td data-th="Date" class="col motdate">
+                                <span class="label">
+                                <?= $block->escapeHtml($block->formatDate($quote->getCreatedAt())); ?>
+                                </span>
+                            </td>
+                            <td data-th="Action" class="col motactions">
+                                <span class="label mot_action">
+                                <?php if ($block->quoteStatusIsNotSold($quote->getStatus())) { ?>
+                                    <span><i class="fa fa-trash quote_delete" aria-hidden="true"
+                                    title="<?= /* @noEscape */ __('Delete')?>"
+                                    data-url = "<?= $block->escapeUrl($block->getUrl(
+                                        'quotesystem/buyerquote/delete/',
+                                        [
+                                            'id'=>$quote->getEntityId(),
+                                            '_secure' => $block->getIsSecure()
+                                        ]
+                                    )) ?>"
+                                    login-url = "<?= $block->escapeUrl($block->getUrl('customer/account/login')); ?>"
+                                    data-type="<?= $block->escapeHtml($quote->getEntityId());?>"></i></span>
+
+                                <?php }  if ($product->getSku()) { ?>
+                                        <span><i class="fa fa-pencil-square-o quote_edit" aria-hidden="true"
+                                    data-id="<?= $block->escapeHtml($quote->getEntityId());?>"
+                                    data-url = "<?= $block->escapeUrl($block->getUrl(
+                                        'quotesystem/buyerquote/edit/',
+                                        [
+                                            'id'=>$quote->getEntityId(),
+                                            '_secure' => $block->getIsSecure()
+                                        ]
+                                    )) ?>"
+                                    title="<?= /* @noEscape */ __('Edit')?>"></i></span>
+
+                                <?php } ?>
+                                </span>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </form>
+    <?php endif; ?>
+</div>
+<div class="toolbar bottom">
+    <?= $block->getPagerHtml(); ?>
+</div>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="javascript:;"
+        onclick="javascript: window.history.back();"
+        class="left">&laquo; <?= /* @noEscape */ __('Back') ?></a>
+    </p>
+</div>
+<?php
+$formData = [
+    'quoteedit'         =>   '.quote_edit',
+    'massdelete'        =>  '#mass_delete_butn',
+    'quotecheckbox'     =>  '.quotecheckbox',
+    'massdeleteform'    =>  '#formmassdelete',
+    'selectall'         =>  '#quoteselecctall',
+    'quotedelete'       =>  '.quote_delete',
+    'quotestatus'       =>  '.pro_status button',
+    'addtocarturl'      =>  $block->getUrl('quotesystem/buyerquote/addtocart', ['_secure' => $block->getIsSecure()]),
+    'customerloginUrl'  =>  $block->getUrl('customer/account/login', ['_secure' => $block->getIsSecure()])
+];
+$serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "MotQuotesystem": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

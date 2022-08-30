@@ -1,0 +1,30 @@
+<style>
+    .custom.link.wishlist{
+        float: right;
+    }
+
+
+</style>
+<div class="custom link wishlist" data-bind="scope: 'wishlist'">
+    <button <?= /* @noEscape */ $block->getLinkAttributes() ?> class="favorite-button d-none d-lg-block" onclick="window.location.href='/wishlist';"><i class="fa fa-heart fa-lg" aria-hidden="true"></i>
+
+        <!-- ko if: wishlist().counter -->
+        <span data-bind="text: wishlist().counter" class="cart-counter qty"></span>
+
+        <!-- /ko -->
+    </button>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "wishlist": {
+                        "component": "Magento_Wishlist/js/view/wishlist"
+                    }
+                }
+            }
+        }
+    }
+
+</script>

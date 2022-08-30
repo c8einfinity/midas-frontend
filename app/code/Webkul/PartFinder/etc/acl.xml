@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!-- 
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Webkul_PartFinder::Partfinder" sortOrder="10" title="Partfinder">
+					<resource id="Webkul_PartFinder::Partfinder_save" sortOrder="10" title="Save Partfinder"/>
+					<resource id="Webkul_PartFinder::Partfinder_delete" sortOrder="20" title="Delete Partfinder"/>
+					<resource id="Webkul_PartFinder::Partfinder_update" sortOrder="30" title="Update Partfinder"/>
+					<resource id="Webkul_PartFinder::Partfinder_view" sortOrder="40" title="View Partfinder"/>
+					<resource id="Webkul_PartFinder::profile_create" sortOrder="50" title="View Partfinder"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

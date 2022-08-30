@@ -1,0 +1,178 @@
+<?xml version="1.0" ?>
+<!-- 
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="component" xsi:type="string">Webkul_PartFinder/js/form/form</item>
+            <item name="provider" xsi:type="string">import_profile_form.import_profile_form_data_source</item>
+            <item name="namespace" xsi:type="string">import_profile_form</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="runModal" xsi:type="string">run_import</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="childrenFromMeta" xsi:type="boolean">true</item>
+    </argument>
+	<settings>
+        <buttons>
+            <button name="start-import" class="Webkul\PartFinder\Block\Adminhtml\Profile\Edit\Button\Import"/>
+        </buttons>
+        <namespace>import_profile_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>import_profile_form.import_profile_form_data_source</dep>
+        </deps>
+    </settings>
+	<dataSource name="import_profile_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="Webkul\PartFinder\Model\Partfinder\Profile\DataProvider" name="import_profile_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+        <htmlContent name="import.form.matrix.content" sortOrder="1000">
+            <block name="import.profile.form.matrix" class="Webkul\PartFinder\Block\Adminhtml\Partfinder\Edit\Import\Profile" template="Webkul_PartFinder::finder/edit/import/profile.phtml" as="profile">
+                <arguments>
+                    <argument name="config" xsi:type="array">
+                        <item name="collapsible" xsi:type="boolean">false</item>
+                        <item name="label" xsi:type="string" translate="true" />
+                        <item name="sortOrder" xsi:type="string">1000</item>
+                        <item name="canShow" xsi:type="boolean">true</item>
+                        <item name="componentType" xsi:type="string">fieldset</item>
+                        <item name="provider" xsi:type="string">import_profile_form.import_profile_form_data_source</item>
+                        <item name="form" xsi:type="string">import_profile_form.import_profile_form</item>
+                        <item name="nameStepWizard" xsi:type="string">add-profile-steps-wizard</item>
+                        <item name="dataScope" xsi:type="string">importData</item>
+                    </argument>
+                </arguments>
+            </block>
+        </htmlContent>
+    </fieldset>
+    <fieldset name="upload">
+        <settings>
+            <label translate="true">Upload Csv</label>
+        </settings>
+        <field name="import_file" formElement="fileUploader">
+            <settings>
+                <notice translate="true">Allowed file type: csv</notice>
+                <label translate="true">Select File to Import</label>
+                <componentType>fileUploader</componentType>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <fileUploader>
+                    <settings>
+                        <allowedExtensions>csv</allowedExtensions>
+                        <maxFileSize>10240000</maxFileSize>
+                        <placeholderType>file</placeholderType>
+                        <previewTmpl>ui/form/element/uploader/preview</previewTmpl>
+                        <uploaderConfig>
+                            <param xsi:type="string" name="url">partfinder/partfinder_profile/upload</param>
+                        </uploaderConfig>
+                    </settings>
+                </fileUploader>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="download">
+        <settings>
+            <label/>
+        </settings>
+        <htmlContent name="import.form.matrix.download" sortOrder="1000">
+            <block name="import.profile.download" template="Webkul_PartFinder::profile/download.phtml" as="download"/>
+        </htmlContent>
+    </fieldset>
+    <modal name="run_import">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Webkul_PartFinder/js/components/modal-component</item>
+                <item name="onCancel" xsi:type="string">actionDone</item>
+                <item name="job" xsi:type="string">${ $.provider }</item>
+                <item name="validateUrl" xsi:type="url" path="partfinder/partfinder_profile/validateimport"/>
+                <item name="url" xsi:type="url" path="partfinder/partfinder_profile/run"/>
+                <item name="urlProcess" xsi:type="url" path="partfinder/partfinder_profile/process"/>
+                <item name="options" xsi:type="array">
+                    <item name="title" xsi:type="string">Run Profile</item>
+                    <item name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string">Run</item>
+                            <item name="class" xsi:type="string">action-primary run-import</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="array">
+                                    <item name="targetName" xsi:type="string">${ $.name }</item>
+                                    <item name="actionName" xsi:type="string">actionRun</item>
+                                </item>
+                            </item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="text" xsi:type="string">Add Products to Finder</item>
+                            <item name="class" xsi:type="string">action-primary save-import</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="array">
+                                    <item name="targetName" xsi:type="string">${ $.name }</item>
+                                    <item name="actionName" xsi:type="string">actionSave</item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <fieldset name="progress_bar">
+            <settings>
+                <label/>
+            </settings>
+            <field name="progress" formElement="input" component="Webkul_PartFinder/js/form/element/progress-bar" template="Webkul_PartFinder/form/element/progress-bar">
+                <settings>
+                    <dataType>text</dataType>
+                    <label translate="true">Download</label>
+                </settings>
+            </field>
+        </fieldset>
+        <fieldset name="generated_products">
+            <settings>
+                <label translate="true">Generated Products</label>
+            </settings>
+            <field name="products" formElement="input">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="component" xsi:type="string">Webkul_PartFinder/js/profile/summary</item>
+                        <item name="template" xsi:type="string">Webkul_PartFinder/profile/summary</item>
+                        <item name="variationsComponent" xsi:type="string">webkul_partfinder_partfinder_form.webkul_partfinder_partfinder_form.partfinderVariations</item>
+                        <item name="profileModalComponent" xsi:type="string">webkul_partfinder_partfinder_form.webkul_partfinder_partfinder_form.import_profile_modal</item>
+                        <item name="modalComponent" xsi:type="string">import_profile_form.import_profile_form.run_import</item>
+                    </item>
+                </argument>
+                <settings>
+                    <dataType>text</dataType>
+                    <label translate="true">Download</label>
+                </settings>
+            </field>
+        </fieldset>
+    </modal>
+</form>

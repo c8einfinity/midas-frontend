@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- /**
+ * buyer quote edit.xml
+ */ -->
+<!-- Use to display edit quote page -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="Motus_Quotesystem::css/quotesystem.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Motus\Quotesystem\Block\Editquotes" name="qs_edit" template="Motus_Quotesystem::buyer/quoteedit.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,32 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 3.0.1 --------------------------------------
+    + Compatible upto Magento 2.3.5
+
+-------------------------------- Version 3.0.0 --------------------------------------
+    + Compatible upto Magento 2.3.4
+    - Fixed some bugs
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    + Compatible with Magento 2.3.x
+    - Fixed some bugs
+
+-------------------------------- Version 2.0.0 --------------------------------------
+    + Admin can create/update/delete Part Finder.
+    + Admin can create/delete multiple Dropdowns for Partfinder.
+    + Admin can create dropdowns required.
+    + Admin can add products to part finder.
+    + Admin can generate dropdowns and can add products via CSV file upload.
+    + Admin can create/edit Import Profiles for importing dropdowns process.
+    + Admin can create new category from the add/edit Part finder page.
+    + Admin can disable Part finders.
+    + Admin can assign part finder to multiple categories.
+    + Admin can add part finders on CMS Pages/ Block.
+    + Admin can insert part finder widget on any CMS Page/Block.
+    + Admin can assign product to part finder from edit product page.
+    + Customer can search parts on the website.
+    + Part finder can search the parts category wise as per the admin setting.
+    + Part finder can search the parts globally.

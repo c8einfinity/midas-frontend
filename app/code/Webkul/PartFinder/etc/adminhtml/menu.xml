@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Webkul_PartFinder::part_finder" module="Webkul_PartFinder" resource="Webkul_PartFinder::Partfinder" sortOrder="50" title="Part Finder"/>
+		<add action="partfinder/partfinder/index" id="Webkul_PartFinder::webkul_partfinder" module="Webkul_PartFinder" parent="Webkul_PartFinder::part_finder" resource="Webkul_PartFinder::Partfinder" sortOrder="50" title="Part Finder List"/>
+	</menu>
+</config>

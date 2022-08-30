@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+  -->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="partfinder_index" resource="default" engine="innodb" comment="partfinder_index">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name"/>
+    <column xsi:type="varchar" name="widget_name" nullable="false" length="255" comment="widget name"/>
+    <column xsi:type="varchar" name="widget_code" nullable="false" length="255" comment="widget code"/>
+    <column xsi:type="boolean" name="status" nullable="true" comment="status"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" comment="created_at"/>
+    <column xsi:type="smallint" name="store_id" padding="6" unsigned="false" nullable="true" identity="false" comment="store_id"/>
+    <column xsi:type="smallint" name="dropdown_count" padding="6" unsigned="false" nullable="true" identity="false" comment="dropdown_count"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="partfinder_product" resource="default" engine="innodb" comment="partfinder_product">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="finder_id" padding="10" unsigned="true" nullable="false" identity="false" comment="finder_id"/>
+    <column xsi:type="text" name="product_id" nullable="true" comment="product_id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="PARTFINDER_PRODUCT_FINDER_ID_PARTFINDER_INDEX_ENTITY_ID" table="partfinder_product" column="finder_id" referenceTable="partfinder_index" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+  <table name="partfinder_category" resource="default" engine="innodb" comment="partfinder_category">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="finder_id" padding="10" unsigned="true" nullable="true" identity="false" comment="finder_id"/>
+    <column xsi:type="int" name="category_id" padding="11" unsigned="false" nullable="true" identity="false" comment="category_id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="PARTFINDER_CATEGORY_FINDER_ID_PARTFINDER_INDEX_ENTITY_ID" table="partfinder_category" column="finder_id" referenceTable="partfinder_index" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+  <table name="partfinder_dropdown" resource="default" engine="innodb" comment="partfinder_dropdown">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="finder_id" padding="10" unsigned="true" nullable="true" identity="false" comment="finder_id"/>
+    <column xsi:type="text" name="label" nullable="true" comment="label"/>
+    <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="true" identity="false" comment="attribute_id"/>
+    <column xsi:type="boolean" name="is_mapped" nullable="true" comment="is_mapped"/>
+    <column xsi:type="boolean" name="is_required" nullable="true" comment="is_required"/>
+    <column xsi:type="text" name="option_sorting" nullable="true" comment="option sorting"/>
+    <column xsi:type="int" name="sort_order" padding="11" unsigned="false" nullable="true" identity="false" comment="sort order"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="PARTFINDER_DROPDOWN_FINDER_ID_PARTFINDER_INDEX_ENTITY_ID" table="partfinder_dropdown" column="finder_id" referenceTable="partfinder_index" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+  <table name="partfinder_dropdown_option" resource="default" engine="innodb" comment="partfinder_dropdown_option">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="dropdown_id" padding="10" unsigned="true" nullable="true" identity="false" comment="dropdown_id"/>
+    <column xsi:type="text" name="label" nullable="true" comment="label"/>
+    <column xsi:type="text" name="value" nullable="true" comment="value"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="PARTFINDER_DROPDOWN_OPT_DROPDOWN_ID_PARTFINDER_DROPDOWN_ENTT_ID" table="partfinder_dropdown_option" column="dropdown_id" referenceTable="partfinder_dropdown" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+  <table name="partfinder_product_selection" resource="default" engine="innodb" comment="partfinder_product_selection">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="finder_id" padding="10" unsigned="true" nullable="false" identity="false" comment="finder_id"/>
+    <column xsi:type="int" name="dropdown_id" padding="11" unsigned="false" nullable="true" identity="false" comment="dropdown_id"/>
+    <column xsi:type="int" name="option_id" padding="11" unsigned="false" nullable="true" identity="false" comment="option_id"/>
+    <column xsi:type="int" name="product_id" padding="11" unsigned="false" nullable="true" identity="false" comment="product_id"/>
+    <column xsi:type="text" name="variation_key" nullable="true" comment="variation key"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="PARTFINDER_PRD_SELECTION_FINDER_ID_PARTFINDER_IDX_ENTT_ID" table="partfinder_product_selection" column="finder_id" referenceTable="partfinder_index" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+  <table name="partfinder_profiledata" resource="default" engine="innodb" comment="partfinder_profiledata">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="profile name"/>
+    <column xsi:type="text" name="mapping" nullable="true" comment="mapping"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="partfinder_website" resource="default" engine="innodb" comment="partfinder_website">
+    <column xsi:type="int" name="finder_id" padding="10" unsigned="true" nullable="false" identity="false" comment="finder_id"/>
+    <column xsi:type="smallint" name="website_id" padding="5" unsigned="true" nullable="false" identity="false" comment="website_id"/>
+    <constraint xsi:type="foreign" referenceId="PARTFINDER_WEBSITE_FINDER_ID_PARTFINDER_INDEX_ENTITY_ID" table="partfinder_website" column="finder_id" referenceTable="partfinder_index" referenceColumn="entity_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="PARTFINDER_WEBSITE_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID" table="partfinder_website" column="website_id" referenceTable="store_website" referenceColumn="website_id" onDelete="CASCADE"/>
+  </table>
+</schema>

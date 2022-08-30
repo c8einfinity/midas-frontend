@@ -1,0 +1,49 @@
+.mot-counter.qty {
+    background: #ff5501;
+    color: #ffffff;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 3px 0 0;
+    min-width: 18px;
+    overflow: hidden;
+    padding: 0 3px;
+    text-align: center;
+    white-space: normal;
+}
+.mot-counter-label {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+.mot-quote-item-container {
+    height: unset !important;
+}
+a.action.mot_showquote::before {
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 22px;
+    line-height: 28px;
+    color: #757575;
+    content: '\e611';
+    font-family: 'luma-icons';
+    margin: 0;
+    vertical-align: top;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    text-align: center;
+}
+.mot-bundle.product.options.active {
+    margin-bottom: 24px;
+}
+ol.product.options.list {
+    list-style: none;
+    display: table-footer-group;
+    font-weight: bold;
+}

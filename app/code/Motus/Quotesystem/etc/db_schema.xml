@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="mot_quotes" resource="default" engine="innodb" comment="Quote Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Customer ID"/>
+    <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Product ID"/>
+    <column xsi:type="text" name="product_name" nullable="true" comment="Product Name"/>
+    <column xsi:type="decimal" name="product_price" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Product Price"/>
+    <column xsi:type="text" name="product_option" nullable="true" comment="Product Options"/>
+    <column xsi:type="int" name="item_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Item Id"/>
+    <column xsi:type="int" name="quote_qty" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Quote Quantity"/>
+    <column xsi:type="decimal" name="quote_price" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Quote Price"/>
+    <column xsi:type="text" name="quote_desc" nullable="true" comment="Quote Description"/>
+    <column xsi:type="text" name="links" nullable="true" comment="Product links"/>
+    <column xsi:type="text" name="bundle_option" nullable="true" comment="Product Bundle option"/>
+    <column xsi:type="text" name="super_attribute" nullable="true" comment="Product Super Attribute"/>
+    <column xsi:type="int" name="status" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Quote status"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" comment="Creation Time"/>
+    <column xsi:type="text" name="attachments" nullable="false" comment="attachments"/>
+    <column xsi:type="text" name="quote_currency" nullable="false" comment="quote currency"/>
+    <!-- new column -->
+    <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Quote Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="WK_QUOTE_CONVERSATION_QUOTE_ID_WK_QUOTES_ENTITY_ID" table="mot_quotes" column="quote_id" referenceTable="mot_quote_details" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+  <table name="mot_quote_conversation" resource="default" engine="innodb" comment="Quote Conversation Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="text" name="sender" nullable="true" comment="Sender"/>
+    <column xsi:type="int" name="receiver" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Receiver"/>
+    <column xsi:type="text" name="conversation" nullable="true" comment="Conversation"/>
+    <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Quote Id"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" comment="Creation Time"/>
+    <column xsi:type="text" name="attachments" nullable="false" comment="attachments"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="WK_QUOTE_CONVERSATION_QUOTE_ID_WK_QUOTES_ENTITY_ID" table="mot_quote_conversation" column="quote_id" referenceTable="mot_quotes" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+
+  <!-- feature update -->
+  <table name="mot_quote_details" resource="default" engine="innodb" comment="New Quote Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Customer ID"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" comment="Creation Time"/>
+    <column xsi:type="int" name="is_active" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Is Active"/>
+    <column xsi:type="int" name="quote_generate" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Quote Generated"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  
+</schema>

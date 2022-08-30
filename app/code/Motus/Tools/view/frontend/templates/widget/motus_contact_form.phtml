@@ -1,0 +1,7 @@
+<h1><?= $block->escapeHtml($block->getData('title')) ?></h1>
+<?php
+define("TINA4_SUPPRESS", true);
+require_once ("./system/index.php");
+echo (new FormHelper())->getForm($this->getData("formName"), $this->getData("email"), $this->getData("subjectLine"), $this->getData("redirectUrl"));
+
+

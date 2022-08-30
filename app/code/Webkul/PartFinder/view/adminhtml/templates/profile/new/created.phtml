@@ -1,0 +1,22 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<script>
+(function ($) {
+
+    var data = <?= /* @noEscape */ $block->getProfileBlockJson() ?>;
+    if (data.tab == 'variation') {
+        $('[data-role=finder-variations-matrix]').trigger('add', data.profile);
+    }
+    $('#create_new_profile').modal('closeModal');
+
+})(window.parent.jQuery);
+</script>

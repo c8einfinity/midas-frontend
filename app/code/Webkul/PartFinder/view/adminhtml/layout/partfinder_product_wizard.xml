@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <container name="root">
+        <block class="Webkul\PartFinder\Block\Adminhtml\Partfinder\Edit\Tab\Config\Matrix" template="Webkul_PartFinder::finder/edit/super/wizard-ajax.phtml" name="finder.wizard" as="custom_wizard">
+            <arguments>
+                <argument name="config" xsi:type="array">
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true" />
+                    <item name="sortOrder" xsi:type="string">3333</item>
+                    <item name="canShow" xsi:type="boolean">true</item>
+                    <item name="componentType" xsi:type="string">fieldset</item>
+                    <item name="form" xsi:type="string">webkul_partfinder_partfinder_form.webkul_partfinder_partfinder_form</item>
+                    <item name="modal" xsi:type="string">addProductModal</item>
+                    <item name="nameStepWizard" xsi:type="string">add-product-steps-wizard</item>
+                    <item name="dataScope" xsi:type="string">finderProducts</item>
+                </argument>
+            </arguments>
+            <block class="Webkul\PartFinder\Block\Component\StepsWizard" name="add-product-steps-wizard">
+                <arguments>
+                    <argument name="config" xsi:type="array">
+                        <item name="form" xsi:type="string">webkul_partfinder_partfinder_form.webkul_partfinder_partfinder_form</item>
+                        <item name="modal" xsi:type="string">addProductModal</item>
+                        <item name="dataScope" xsi:type="string">finderProducts</item>
+                    </argument>
+                </arguments>
+                <block class="Webkul\PartFinder\Block\Adminhtml\Partfinder\Product\Steps\SelectProducts" name="step1" template="Webkul_PartFinder::finder/edit/steps/select_products.phtml">
+                    <arguments>
+                        <argument name="config" xsi:type="array">
+                            <item name="form" xsi:type="string">webkul_partfinder_partfinder_form.webkul_partfinder_partfinder_form</item>
+                            <item name="modal" xsi:type="string">addProductModal</item>
+                            <item name="multiselectName" xsi:type="string">finder_product_listing.finder_product_listing.product_columns.ids</item>
+                            <item name="providerName" xsi:type="string">finder_product_listing.finder_product_listing_data_source</item>
+                            <item name="dataScope" xsi:type="string">finderProducts</item>
+                        </argument>
+                    </arguments>
+                    <uiComponent name="finder_product_listing"/>
+                </block>
+                <block class="Webkul\PartFinder\Block\Adminhtml\Partfinder\Product\Steps\DropdownValues" name="step2" template="Webkul_PartFinder::finder/edit/steps/dropdown_values.phtml">
+                    <arguments>
+                        <argument name="config" xsi:type="array">
+                            <item name="dropdownProvider" xsi:type="string">webkul_partfinder_partfinder_form.webkul_partfinder_partfinder_form.dropdown_options.dropdowns</item>
+                            <item name="form" xsi:type="string">webkul_partfinder_partfinder_form.webkul_partfinder_partfinder_form</item>
+                            <item name="modal" xsi:type="string">addProductModal</item>
+                            <item name="dataScope" xsi:type="string">finderProducts</item>
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Webkul\PartFinder\Block\Adminhtml\Partfinder\Product\Steps\Summary" name="step3" template="Webkul_PartFinder::finder/edit/steps/summary.phtml">
+                    <arguments>
+                        <argument name="config" xsi:type="array">
+                            <item name="form" xsi:type="string">webkul_partfinder_partfinder_form.webkul_partfinder_partfinder_form</item>
+                            <item name="modal" xsi:type="string">addProductModal</item>
+                            <item name="dataScope" xsi:type="string">finderProducts</item>
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
+        </block>
+    </container>
+</layout>

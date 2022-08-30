@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Motus - Forms</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Motus\Tools\Block\Admin\Forms" name="motus_forms_index" template="Motus_Tools::forms.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

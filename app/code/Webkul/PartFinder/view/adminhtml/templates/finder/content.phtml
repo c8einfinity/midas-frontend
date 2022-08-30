@@ -1,0 +1,133 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$finders = $block->getPartFinders();
+$dropdowns = $block->getDropdowns();
+$formName = $block->getFormName();
+?>
+<div class="<?= /* @noEscape */ $block->getData('config/dataScope') ?>" 
+    id="<?= $block->getHtmlId() ?>" 
+    data-parent-component="<?= $block->escapeHtml($block->getData('config/parentComponent')) ?>" 
+    data-role="product-form-finder-options">
+    <div data-bind="scope: '<?= /* @noEscape */ $block->getData('config/form') ?>.partfinderOptions'" class="admin__data-grid-outer-wrap">
+        <input type="hidden" 
+        class="input-text admin__control-text no-changes" 
+        data-form-part="<?= /* @noEscape */ $formName ?>"
+        data-bind="value: ko.toJSON(columns)"
+        name="dropdown_data"
+        />
+        <input type="hidden" 
+        class="input-text admin__control-text no-changes" 
+        data-form-part="<?= /* @noEscape */ $formName ?>"
+        data-bind="value: ko.toJSON(variations)"
+        name="finder_variation"
+        />
+        <fieldset class="admin__fieldset">
+            <div class="admin__field">
+                <label class="admin__field-label" for="CIC2ROW">
+                    <span data-bind="i18n: 'Choose Finders'"></span>
+                </label>
+                <div class="admin__field-control">
+                    <select class="admin__control-select" data-bind="options: finders,
+                        optionsText: 'name',
+                        optionsValue: 'entity_id',
+                        value: selected,
+                        optionsCaption: 'Select Part Finder'" name="finder_id" 
+                        data-form-part="<?= /* @noEscape */ $formName ?>"></select>
+                </div>
+            </div>
+        </fieldset>
+        <!-- ko if: displayNotice() === true -->
+            <div class="notice message"><span data-bind="i18n: 'This part finder is disabled or does not have dropdowns.'"></span></div>
+        <!-- /ko -->
+        <div class="admin__data-grid-wrap" data-role="grid-wrapper" data-bind="visible: displayDropdownGrid()">
+            <table class="data-grid" data-role="grid">
+                <thead>
+                    <tr data-bind="foreach: {data: columns, as: '$col'}">
+                        <th class="data-grid-th" data-bind="text: $col.label"></th>
+                    </tr>
+                    <tr class="data-grid-filters" data-bind="foreach: columns">
+                        <td data-column="option_label">
+                            <input type="text" 
+                            value="" 
+                            class="input-text admin__control-text no-changes"
+                            data-bind="event: {keyup: $parent.filterDropdownValue.bind($parent)}, attr: { name: 'dropdown' + $index()}, afterRender:$parent.afterRenderfilter"
+                            />
+                        </td >
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="data-grid-filters" data-bind="foreach: columns">
+                        <td>
+                            <select data-bind="options: $data.filterOptions,
+                            optionsText: 'label',
+                            optionsValue: 'value',
+                            selectedOptions: chosenOptions,
+                            attr: {name: 'selected_option['+$data.dropdown_id+'][]', id: uid}
+                            " 
+                            style="height: 15rem;"
+                            size="30"
+                            multiple="true" 
+                            data-form-part="<?= /* @noEscape */ $formName ?>"></select>
+                        </td>
+                    </tr>
+                    <tr class="data-grid-filters" data-bind="foreach: columns">
+                        <td data-column="option_label">
+                            <input type="text" 
+                            class="input-text admin__control-text no-changes" 
+                            value="" 
+                            style="width: 66%;
+                                float: left;
+                                margin-right: 0.5rem;" 
+                            data-bind="event: {focusout: $parent.addNewOptionValue.bind($parent)}"
+                            
+                            />
+                            <button type="button" data-bind="click: $parent.addNew.bind($parent), clickBubble: false" class="action">
+                                    <span data-bind="i18n: 'Add Options'"></span>
+                            </button>
+                        </td >
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td data-bind="attr: {'colspan': totalDropdowns}" style="border:none">
+                            <input type="text" style="position:absolute; opacity:0;" class="validate-all-selected" data-form-part="<?= /* @noEscape */ $formName ?>" name="validation"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= /* @noEscape */ $block->getData('config/form') ?>.partfinderOptions": {
+                        "component": "Webkul_PartFinder/js/components/product-form-finder",
+                        "provider": "<?= /* @noEscape */ $block->getData('config/provider') ?>",
+                        "formName": "<?= /* @noEscape */ $block->getData('config/form') ?>",
+                        "productUrl": "<?= /* @noEscape */ $block->getUrl('catalog/product/edit', ['id' => '%id%']) ?>",
+                        "attributeSetCreationUrl": "<?= /* @noEscape */ $block->getUrl('*/product_set/save') ?>",
+                        "finders": <?= /* @noEscape */ $block->jsonEncode($finders) ?>,
+                        "dropdowns": <?= /* @noEscape */ $block->jsonEncode($dropdowns) ?>
+                    }
+                }
+            }
+        }
+    }
+</script>
+<script>
+    require(['jquery', 'mage/apply/main'], function ($, main) {
+        main.apply();
+        $('.<?= /* @noEscape */ $block->getData('config/dataScope') ?>[data-role=product-form-finder-options]').applyBindings();
+    })
+</script>

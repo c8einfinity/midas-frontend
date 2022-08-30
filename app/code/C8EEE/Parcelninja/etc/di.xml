@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="C8EEE\Parcelninja\Model\Order\ShipmentRepository">
+        <arguments>
+            <argument name="metadata" xsi:type="object">orderMetadata</argument>
+        </arguments>
+    </type>
+	<type name="C8EEE\Parcelninja\Logger\Handler">
+		<arguments>
+			<argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+		</arguments>
+	</type>
+	<type name="C8EEE\Parcelninja\Logger\Logger">
+		<arguments>
+			<argument name="name" xsi:type="string">Parcelninja</argument>
+			<argument name="handlers" xsi:type="array">
+				<item name="system" xsi:type="object">C8EEE\Parcelninja\Logger\Handler</item>
+			</argument>
+		</arguments>
+	</type>
+	<type name="Magento\Quote\Model\Cart\ShippingMethodConverter">
+        <plugin name="C8EEE_Parcelninja_Plugin" type="C8EEE\Parcelninja\Plugin\ShippingMethodConverter" sortOrder="10" disabled="false"  />
+    </type>
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="C8EEE_Parcelninja_Plugin_ShippingInformationManagement" type="C8EEE\Parcelninja\Plugin\ShippingInformationManagement" sortOrder="10" disabled="false"  />
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address\Rate">
+        <plugin name="C8EEE_Parcelninja_Plugin_Rate" type="C8EEE\Parcelninja\Plugin\Rate" sortOrder="10" disabled="false"  />
+    </type>
+    <virtualType name="orderMetadata" type="Magento\Sales\Model\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Magento\Sales\Model\ResourceModel\Order</argument>
+            <argument name="modelClassName" xsi:type="string">Magento\Sales\Model\Order</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="orderItemMetadata" type="Magento\Sales\Model\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Item</argument>
+            <argument name="modelClassName" xsi:type="string">Magento\Sales\Model\Order\Item</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="invoiceMetadata" type="Magento\Sales\Model\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Invoice</argument>
+            <argument name="modelClassName" xsi:type="string">Magento\Sales\Model\Order\Invoice</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="shipmentMetadata" type="Magento\Sales\Model\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Shipment</argument>
+            <argument name="modelClassName" xsi:type="string">Magento\Sales\Model\Order\Shipment</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="creditmemoMetadata" type="Magento\Sales\Model\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Creditmemo</argument>
+            <argument name="modelClassName" xsi:type="string">Magento\Sales\Model\Order\Creditmemo</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="transactionMetaData" type="Magento\Sales\Model\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Payment\Transaction</argument>
+            <argument name="modelClassName" xsi:type="string">Magento\Sales\Model\Order\Payment\Transaction</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="paymentMetaData" type="Magento\Sales\Model\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Payment</argument>
+            <argument name="modelClassName" xsi:type="string">Magento\Sales\Model\Order\Payment</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="orderAddressMetadata" type="Magento\Sales\Model\ResourceModel\Metadata">
+        <arguments>
+            <argument name="resourceClassName" xsi:type="string">Magento\Sales\Model\ResourceModel\Order\Address</argument>
+            <argument name="modelClassName" xsi:type="string">Magento\Sales\Model\Order\Address</argument>
+        </arguments>
+    </virtualType>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <head>
+        <css src="Webkul_PartFinder::css/style.css" />
+    </head>
+    <container name="root">
+        <block class="Webkul\PartFinder\Block\Adminhtml\Profile\NewProfile\Created" template="Webkul_PartFinder::profile/new/created.phtml" name="root.finder_new_profile_created" as="finder.profile.created" />
+    </container>
+</layout>

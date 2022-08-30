@@ -1,0 +1,101 @@
+{
+    "partfinder_index": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "widget_name": true,
+            "widget_code": true,
+            "status": true,
+            "created_at": true,
+            "store_id": true,
+            "dropdown_count": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "partfinder_product": {
+        "column": {
+            "entity_id": true,
+            "finder_id": true,
+            "product_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PARTFINDER_PRODUCT_FINDER_ID_PARTFINDER_INDEX_ENTITY_ID": true
+        }
+    },
+    "partfinder_category": {
+        "column": {
+            "entity_id": true,
+            "finder_id": true,
+            "category_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PARTFINDER_CATEGORY_FINDER_ID_PARTFINDER_INDEX_ENTITY_ID": true
+        }
+    },
+    "partfinder_dropdown": {
+        "column": {
+            "entity_id": true,
+            "finder_id": true,
+            "label": true,
+            "attribute_id": true,
+            "is_mapped": true,
+            "is_required": true,
+            "option_sorting": true,
+            "sort_order": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PARTFINDER_DROPDOWN_FINDER_ID_PARTFINDER_INDEX_ENTITY_ID": true
+        }
+    },
+    "partfinder_dropdown_option": {
+        "column": {
+            "entity_id": true,
+            "dropdown_id": true,
+            "label": true,
+            "value": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PARTFINDER_DROPDOWN_OPT_DROPDOWN_ID_PARTFINDER_DROPDOWN_ENTT_ID": true
+        }
+    },
+    "partfinder_product_selection": {
+        "column": {
+            "entity_id": true,
+            "finder_id": true,
+            "dropdown_id": true,
+            "option_id": true,
+            "product_id": true,
+            "variation_key": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PARTFINDER_PRD_SELECTION_FINDER_ID_PARTFINDER_IDX_ENTT_ID": true
+        }
+    },
+    "partfinder_profiledata": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "mapping": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "partfinder_website": {
+        "column": {
+            "finder_id": true,
+            "website_id": true
+        },
+        "constraint": {
+            "PARTFINDER_WEBSITE_FINDER_ID_PARTFINDER_INDEX_ENTITY_ID": true,
+            "PARTFINDER_WEBSITE_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID": true
+        }
+    }
+}

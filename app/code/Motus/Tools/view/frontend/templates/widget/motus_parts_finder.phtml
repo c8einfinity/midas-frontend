@@ -1,0 +1,236 @@
+<h1><?= $block->escapeHtml($block->getData('title')) ?></h1>
+<?php
+define("TINA4_SUPPRESS", true);
+require_once ("./system/index.php");
+
+echo (new PartHelper())->getLookups($this->getData("parentCategory"));
+
+if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())) {
+    $type = 'widget-new-grid';
+
+    $mode = 'grid';
+
+    $image = 'new_products_content_widget_grid';
+    $title = __('Product Search');
+    $items = $block->getProductCollection()->getItems();
+
+    $categoryLinks = [];
+
+    foreach ($items as $id => $item) {
+        $productId = $item->getEntityId();
+        $product = $block->getProductById($productId);
+        $categoryIds = $product->getCategoryIds();
+
+        foreach ($categoryIds as $ci => $categoryId) {
+            $categoryLinks[$categoryId] = $block->getCategoryImage($categoryId);
+        }
+    }
+
+
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+    $description = false;
+}
+?>
+<?php
+if (!empty($categoryLinks) && empty($_REQUEST["categoryId"])) { ?>
+    <div class="row">
+        <?php
+        foreach ($categoryLinks as $categoryId => $imageUrl) {
+            if (!empty($imageUrl)) {
+            ?>
+                <div class="col-md-2" style="margin-bottom: 10px;"><a href="#" onclick="document.partFinder.categoryId.value=<?=$categoryId?>; document.partFinder.submit();"><img style="object-fit: cover;" src="<?=$imageUrl?>" /></a></div>
+            <?php
+            }
+        }
+        ?>
+    </div>
+    <?php
+}
+?>
+<style>
+    .page-layout-1column .filter-options-item {
+        display: block;
+        margin-right: 0px;
+        border: inherit;
+        position: inherit;
+    }
+
+    .page-layout-1column .filter-options-content {
+        display:block;
+        box-shadow: none;
+        width:100%;
+        border: none;
+        position: relative;
+    }
+</style>
+<div class="row">
+<div class="col-md-3">
+    <?php
+    if (isset($_REQUEST["categoryId"]) && !empty($_REQUEST["categoryId"])) {
+        $filters = $block->getFilters($_REQUEST["categoryId"]);
+        echo "<input type=\"hidden\" name=\"categoryId\" value=\"{$_REQUEST["categoryId"]}\">";
+        ?>
+    <div class="block filter" id="layered-filter-block" data-collapsible="true">
+        <div class="block-title filter-title" data-count="0" role="tablist">
+            <strong data-role="title" role="tab" aria-selected="false" aria-expanded="true" tabindex="0">Shop By</strong>
+        </div>
+        <div class="block-content filter-content">
+        <div class="filter-options" id="narrow-by-list" data-role="content" role="tablist">
+        <?php
+        foreach ($filters as $id => $filter) {
+            foreach ($filter as $name => $filterItems) {
+                ?>
+            <div data-mage-init='{"collapsible":{"openedState": "active", "collapsible": true, "active": true, "collateral": { "openedState": "filter-active", "element": "body"} }}' data-role="collapsible" class="filter-options-item" role="presentation" data-collapsible="false">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="true" aria-expanded="false" tabindex="0"><?=$name?></div>
+            <div data-role="content" class="filter-options-content" role="tabpanel" aria-hidden="true" style="display: block;">
+                <ol class="items">
+
+                    <?php
+                foreach ($filterItems as $fid => $filterItem) {
+                    ?>
+                    <li class="item">
+
+                    <a href="#" onclick="document.partFinder.attributeId.value=<?=$filterItem["value"]?>; document.partFinder.submit();"><?=$filterItem["display"]?><span class="count"><?=$filterItem["count"]?><span class="filter-count-label">
+                             item</span></span>
+                                    </a>
+                    </li>
+                <?php
+                }
+                ?>
+
+                </ol>
+            </div>
+            </div>
+                <?php
+            }
+        } ?>
+
+        </div>
+        </div>
+    </div>
+        <?php
+    }?>
+    <script>
+        require([
+            'jquery'
+        ], function ($) {
+            $('#layered-filter-block').addClass('filter-no-options');
+           // $(".filter-options-item").collapse({ toggle: true});
+        });
+
+    </script>
+</div>
+<div class="col-md-9">
+
+<?php if ($exist && !empty($_REQUEST["categoryId"])) :?>
+    <div class="block widget block-new-products <?= /* @noEscape */ $mode ?>">
+        <div class="block-title">
+            <strong role="heading" aria-level="2"><?= $block->escapeHtml($title) ?></strong>
+        </div>
+        <div class="block-content">
+            <?= /* @noEscape */ '<!-- ' . $image . '-->' ?>
+            <div class="products-<?= /* @noEscape */ $mode ?> <?= /* @noEscape */ $mode ?>">
+                <ol class="product-items <?= /* @noEscape */ $type ?>">
+                    <?php foreach ($items as $_item) :?>
+                        <li class="product-item">
+                            <div class="product-item-info">
+                                <a href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                   class="product-item-photo">
+                                    <?= $block->getImage($_item, $image)->toHtml() ?>
+                                </a>
+                                <div class="product-item-details">
+                                    <strong class="product-item-name">
+                                        <a title="<?= $block->escapeHtmlAttr(str_replace("Generic ", "", $_item->getName())) ?>"
+                                           href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                           class="product-item-link">
+                                            <?= $block->escapeHtml(str_replace("Generic ", "",$_item->getName())) ?>
+                                        </a>
+                                    </strong>
+                                    <?= $block->getProductPriceHtml($_item, $type); ?>
+
+                                    <?php if ($templateType) :?>
+                                        <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
+                                    <?php endif; ?>
+
+                                    <?php if ($showWishlist || $showCompare || $showCart) :?>
+                                        <div class="product-item-actions">
+                                            <?php if ($showCart) :?>
+                                                <div class="actions-primary">
+                                                    <?php if ($_item->isSaleable()) :?>
+                                                        <?php if (!$_item->getTypeInstance()->isPossibleBuyFromList($_item)) :?>
+                                                            <button class="action tocart primary"
+                                                                    data-mage-init='{"redirectUrl":{"url":"<?= $block->escapeUrl($block->getAddToCartUrl($_item)) ?>"}}'
+                                                                    type="button"
+                                                                    title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>">
+                                                                <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                                                            </button>
+                                                        <?php else :?>
+                                                            <?php
+                                                            $postDataHelper = $this->helper(Magento\Framework\Data\Helper\PostHelper::class);
+                                                            $postData = $postDataHelper->getPostData(
+                                                                $block->escapeUrl($block->getAddToCartUrl($_item)),
+                                                                ['product' => (int) $_item->getEntityId()]
+                                                            )
+                                                            ?>
+                                                            <!--<button class="action tocart primary"
+                                                                    data-post='<?= /* @noEscape */ $postData ?>'
+                                                                    type="button"
+                                                                    title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>">
+                                                                <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                                                            </button>-->
+                                                            <div class="actions quote_button">
+                                                                <button type="button" title="Add Quote" class="quotesystem_cat_add action toquote primary" data-product-id="<?=(int) $_item->getEntityId(); ?>" data-qty="1" data-url="<?=$block->escapeUrl($block->getAddToCartUrl($_item))?>"><span>Add to Quote</span></button>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    <?php else :?>
+                                                        <?php if ($_item->getIsSalable()) :?>
+                                                            <div class="stock available">
+                                                                <span><?= $block->escapeHtml(__('In stock')) ?></span>
+                                                            </div>
+                                                        <?php else :?>
+                                                            <div class="stock unavailable">
+                                                                <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if ($showWishlist || $showCompare) :?>
+                                                <div class="actions-secondary" data-role="add-to-links">
+                                                    <?php if ($this->helper(Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist) :?>
+                                                        <a href="#"
+                                                           data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($_item) ?>'
+                                                           class="action towishlist"
+                                                           data-action="add-to-wishlist"
+                                                           title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>">
+                                                            <span><?= $block->escapeHtml(__('Add to Wish List')) ?></span>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                    <?php if ($block->getAddToCompareUrl() && $showCompare) :?>
+                                                        <?php $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);?>
+                                                        <a href="#" class="action tocompare"
+                                                           data-post='<?= /* @noEscape */ $compareHelper->getPostDataParams($_item) ?>'
+                                                           title="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>">
+                                                            <span><?= $block->escapeHtml(__('Add to Compare')) ?></span>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach ?>
+                </ol>
+            </div>
+            <?= $block->getPagerHtml() ?>
+        </div>
+    </div>
+<?php endif;?>
+</div>
+</div>

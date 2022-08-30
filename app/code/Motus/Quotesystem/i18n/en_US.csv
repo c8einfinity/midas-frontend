@@ -1,0 +1,218 @@
+"Update Quote","Update Quote"
+"Delete Quote","Delete Quote"
+"Edit quote '%1'","Edit quote '%1'"
+"New Quote","New Quote"
+"Manage quotes","Manage quotes"
+"Manage Quotes","Manage Quotes"
+"General Information","General Information"
+"Quote Price","Quote Price"
+"Quote Quantity","Quote Quantity"
+"Product Id","Product Id"
+"Product Name","Product Name"
+Status,Status
+Unapproved,Unapproved
+Approved,Approved
+Declined,Declined
+Sender,Sender
+Receiver,Receiver
+Conversation,Conversation
+Attachments,Attachments
+"Created At","Created At"
+"Manage Quotes Information","Manage Quotes Information"
+"Quote Manager","Quote Manager"
+"Quote Conversation","Quote Conversation"
+Admin,Admin
+"Choose an Option...","Choose an Option..."
+Name,Name
+SKU,SKU
+Price,Price
+Action,Action
+"Add Quote","Add Quote"
+"Sorry some error occured!!!","Sorry some error occured!!!"
+"Sorry!! Quote can't be saved.","Sorry!! Quote can't be saved."
+"Sorry!! Quantity of this product in stock is zero.","Sorry!! Quantity of this product in stock is zero."
+"Your Quote has been successfully sent","Your Quote has been successfully sent"
+"""Sorry you are not allowed to quote such a low quantity for "" .","""Sorry you are not allowed to quote such a low quantity for1 "" ."
+"Quote Quantity can contain only integer value","Quote Quantity can contain only integer value"
+"Quote Price can contain only decimal or integer value","Quote Price can contain only decimal or integer value"
+"Please enter the quote description","Please enter the quote description"
+"Quote is successfully deleted.","Quote is successfully deleted."
+"Something went wrong while Deleting the data.","Something went wrong while Deleting the data."
+"This quote no longer exists.","This quote no longer exists."
+"Edit Quote","Edit Quote"
+"View Quote","View Quote"
+"Can not update Quote(s) Status to sold.","Can not update Quote(s) Status to sold."
+"Quote Status is updated by admin.","Quote Status is updated by admin."
+"A Total of %1 record(s) successfully updated.","A Total of %1 record(s) successfully updated."
+"Something went wrong while Updating the data.","Something went wrong while Updating the data."
+"Quote id %1 Already has been sold","Quote id %1 Already has been sold"
+"Can not update status for quote id %1","Can not update status for quote id %1"
+"Requested quantity is not available for quote id %1.","Requested quantity is not available for quote id %1."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"Quote is not exists.","Quote is not exists."
+"Quote successfully Updated","Quote successfully Updated"
+"Quote Already has been sold","Quote Already has been sold"
+"Not Allowed to update.","Not Allowed to update."
+"Sorry!! Quote Quantity should not be less than %1.","Sorry!! Quote Quantity should not be less than %1."
+"Sorry!! This much product quantity is not available","Sorry!! This much product quantity is not available"
+"Select Customer","Select Customer"
+"Quote does not exists, please contact to admin.","Quote does not exists, please contact to admin."
+"A Quote item of same product is already added in cart.","A Quote item of same product is already added in cart."
+"Quote Product is added into cart","Quote Product is added into cart"
+"Out of stock","Out of stock"
+"You are not allowed to delete the quotes of other.","You are not allowed to delete the quotes of other."
+"Quote Does Not exists.","Quote Does Not exists."
+"Sorry this page is not available","Sorry this page is not available"
+"My Quotes","My Quotes"
+"Quotes are successfully deleted.","Quotes are successfully deleted."
+"Please select checkbox first.","Please select checkbox first."
+"Quote Successfully updated","Quote Successfully updated"
+"Sorry!! Quote Status Changed previously","Sorry!! Quote Status Changed previously"
+"Message Sent Successfully","Message Sent Successfully"
+"Something Went Wrong, Please try again later.","Something Went Wrong, Please try again later."
+Links,Links
+"%1 is not a valid image file","%1 is not a valid image file"
+"%1 is not a valid pdf file","%1 is not a valid pdf file"
+"%1 is not a valid doc file","%1 is not a valid doc file"
+"Thanks for your quote, will contact you soon.","Thanks for your quote, will contact you soon."
+"New Quote has been created Please Check.","New Quote has been created Please Check."
+"Status for <a href='%1'>%2</a> has been changed now.","Status for <a href='%1'>%2</a> has been changed now."
+"Status changed successfully.","Status changed successfully."
+"Your Message send successfully.","Your Message send successfully."
+"A New Message for quoted product: <a href='%1'>%2</a>","A New Message for quoted product: <a href='%1'>%2</a>"
+"A New Message for quoted product: <a href='%1'>%2</a><br/>Quote Link:  <a href='%3'>Click</a>","A New Message for quoted product: <a href='%1'>%2</a><br/>Quote Link:  <a href='%3'>Click</a>"
+"You just Edited your previous quote, details are below.","You just Edited your previous quote, details are below."
+"Customer just Edited his/her quote, details are below.","Customer just Edited his/her quote, details are below."
+"Admin just Edited a quote, details are below.","Admin just Edited a quote, details are below."
+"You just Edited a quote, details are below.","You just Edited a quote, details are below."
+Enable,Enable
+Disable,Disable
+Select,Select
+Yes,Yes
+No,No
+"Quote Id required","Quote Id required"
+"Requested entity doesn't exist","Requested entity doesn't exist"
+"Unable to remove quote %1","Unable to remove quote %1"
+"You can't edit quote items","You can't edit quote items"
+"Add to cart for this product is not allowed","Add to cart for this product is not allowed"
+Edit,Edit
+Delete,Delete
+"Delete qoutes","Delete qoutes"
+"Are you sure to delete quote(s)?","Are you sure to delete quote(s)?"
+Sold,Sold
+Quantity,Quantity
+"Price per Item","Price per Item"
+Description,Description
+"Add Attachment(s)","Add Attachment(s)"
+Product,Product
+"Price After Configuration","Price After Configuration"
+"Quote Description","Quote Description"
+"Quote Attachments","Quote Attachments"
+"Quote Detail","Quote Detail"
+"Quoted Price","Quoted Price"
+"Quoted Quantity:","Quoted Quantity:"
+"minimum quote quantity is %1","minimum quote quantity is %1"
+"Customer Email","Customer Email"
+"Enter Message:","Enter Message:"
+"Upload Attachments:","Upload Attachments:"
+"Associated Products","Associated Products"
+Conversations:,Conversations:
+Me,Me
+"Uploaded files","Uploaded files"
+"Quoted Quantity","Quoted Quantity"
+"Check To Update Quote","Check To Update Quote"
+"Enter Message","Enter Message"
+Update,Update
+Back,Back
+"Search by product name","Search by product name"
+All,All
+Pending,Pending
+Submit,Submit
+"No Quotes Available","No Quotes Available"
+"Delete Quotes","Delete Quotes"
+"Quote Id","Quote Id"
+Date,Date
+"Product doesn't exist anymore","Product doesn't exist anymore"
+"Out of Stock","Out of Stock"
+"Not Available","Not Available"
+"Add To Cart","Add To Cart"
+Login,Login
+"Quote This Product","Quote This Product"
+"Confirm Quote Details","Confirm Quote Details"
+Reset,Reset
+"Hello, ","Hello, "
+%customer_name,%customer_name
+%quoteTitle,%quoteTitle
+"Quote Qty","Quote Qty"
+Sku,Sku
+Options,Options
+Description:,Description:
+"Thank you","Thank you"
+"New message:","New message:"
+"New Message :","New Message :"
+"%url ","%url "
+Quote,Quote
+"New Status :","New Status :"
+"Create an Account","Create an Account"
+"Creating an account has many benefits:","Creating an account has many benefits:"
+"See order and shipping status","See order and shipping status"
+"Track order history","Track order history"
+"Check out faster","Check out faster"
+"Email Address","Email Address"
+Password,Password
+"Sign In","Sign In"
+"Forgot Your Password?","Forgot Your Password?"
+"We don't recognize or support this file extension type.","We don't recognize or support this file extension type."
+"Are you sure you want to edit this quote?","Are you sure you want to edit this quote?"
+"No Checkbox is checked.","No Checkbox is checked."
+"Are you sure you want to delete these quotes?","Are you sure you want to delete these quotes?"
+"Are you sure you want to delete this quote?","Are you sure you want to delete this quote?"
+"Requested Amount is not available please contact Admin","Requested Amount is not available please contact Admin"
+"Requested Quote is not exists, please contact to admin.","Requested Quote is not exists, please contact to admin."
+"There is some error during executing this process, please try again later.","There is some error during executing this process, please try again later."
+Saving,Saving
+Adding...,Adding...
+Added,Added
+"Add to Quote","Add to Quote"
+"minimum quote quantity is ","minimum quote quantity is "
+Motus,Motus
+"Quote System","Quote System"
+"Quote System Settings","Quote System Settings"
+"Quote System Enable/Disable","Quote System Enable/Disable"
+"Allow To use Discount while quote product is in cart","Allow To use Discount while quote product is in cart"
+"Allow customer to apply discount when customer added quote product in cart","Allow customer to apply discount when customer added quote product in cart"
+"Allowed File Types For Attachment","Allowed File Types For Attachment"
+"File type should be comma(,) separated. Use 'gz','tgz','tgzip' for 'tar.gz'. And 'bz','tbz','tbzip','tbz2','tbzip2' for 'tar.bz'","File type should be comma(,) separated. Use 'gz','tgz','tgzip' for 'tar.gz'. And 'bz','tbz','tbzip','tbz2','tbzip2' for 'tar.bz'"
+"Show Add to Cart","Show Add to Cart"
+"Show Product Price","Show Product Price"
+"Minimum Quote Quantity","Minimum Quote Quantity"
+"Quote System Transactional Emails","Quote System Transactional Emails"
+"New Quote Email Template","New Quote Email Template"
+"Quote Status Email Template","Quote Status Email Template"
+"Quote Message Email Template","Quote Message Email Template"
+"Quote Edited Email Template","Quote Edited Email Template"
+ID,ID
+Email,Email
+Phone,Phone
+"ZIP/Post Code","ZIP/Post Code"
+Country,Country
+State/Province,State/Province
+"Signed-up Point","Signed-up Point"
+Website,Website
+"Add New Quote","Add New Quote"
+"Are you sure you want to delete selected Quote(s)?","Are you sure you want to delete selected Quote(s)?"
+"Update Quotes","Update Quotes"
+"Quote Status","Quote Status"
+"Are you sure you want to update status of selected quotes?","Are you sure you want to update status of selected quotes?"
+"Customer Name","Customer Name"
+"Product Price","Product Price"
+"Motus Quote System","Motus Quote System"
+"File type should be comma(,) separated. Use 'gz','tgz','tgzip' for 'tar.gz'. And 'bz','tbz','tbzip','tbz2','tbzip2' for 'tar.bz'","File type should be comma(,) separated. Use 'gz','tgz','tgzip' for 'tar.gz'. And 'bz','tbz','tbzip','tbz2','tbzip2' for 'tar.bz'"
+"Quote ID","Quote ID"
+"Created Date","Created Date"
+"Total Quote Price","Total Quote Price"
+"Store View","Store View"
+"Print Quote","Print Quote"
+"Approved","Approved"
+"Declined","Declined"
+"Add Multiple Quote","Add Multiple Quote"

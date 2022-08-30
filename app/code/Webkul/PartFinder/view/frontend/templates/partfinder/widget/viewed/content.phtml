@@ -1,0 +1,89 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+//  @var \Webkul\PartFinder\Block\Widget\Partfinder $block
+?>
+<?php if ($block->getFinder()) :
+    if ($block->getFinder()->getStatus()) :
+        ?>
+<div id="part_finder_container" class="part-finder-container horizontal" data-role="product-part-finder-widget">
+    <div data-bind="scope: 'partfinderOptions_<?= $block->escapeHtml($block->getFinder()->getId());?>'" class="part-finder-box">
+        <div class="page-title-wrapper">
+            <h1 class="finder-title">
+                <span class="base" data-ui-id="page-title-wrapper"><?= $block->escapeHtml($block->getFinder()->getWidgetName()) ?></span>
+            </h1>
+        </div>
+        <form 
+            id="finder_form_<?= $block->escapeHtml($block->getFinder()->getId());?>" 
+            class="finder-form" 
+            data-mage-init='{"validation":{}}',
+            action="<?= /* @noEscape */ $block->getUrl('partfinder/search', ['_secure'=> true]); ?>"
+        >
+            <!-- ko if: selection() !== '' -->
+            <input type="hidden" name="finder" data-bind="value: selection" />
+            <!-- /ko -->
+            <div id="partFinder_<?= $block->escapeHtml($block->getFinder()->getId());?>" class="partFinder_<?= $block->escapeHtml($block->getFinder()->getId());?>">
+                <ul data-bind="foreach: dropdowns, sortableList: dropdowns">
+                    <li data-bind="attr: {id: 'drop_'+dropdown_id}" class="column2">
+                        <div class="field" data-bind="css: {required: is_required}">
+                            <label class="label"><span data-bind="text:label"></span></label>
+                            <div class="control">
+                                <select data-bind="options: filterOptions,
+                                    optionsText: 'label',
+                                    optionsValue: 'option_id',
+                                    value: selected,
+                                    optionsCaption: 'Choose '+label+'...',
+                                    attr: {name: 'dropdown['+dropdown_id+']'},
+                                    css: {required: is_required}
+                                    "></select>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="button" data-bind="click: submitGlobalFinder" title="Submit" class="action submit primary">
+                        <span><?= $block->escapeHtml(__('Search Parts')) ?></span>
+                    </button>
+                </div>
+                <div class="primary">
+                    <button type="button" data-bind="click: clearGlobalFinder" title="<?= $block->escapeHtml(__('Reset')) ?>" class="action reset">
+                        <span><?= $block->escapeHtml(__('Reset')) ?></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "partfinderOptions_<?= $block->escapeHtml($block->getFinder()->getId());?>": {
+                        "component": "Webkul_PartFinder/js/part-finder-widget",
+                        "dropdowns": <?= /* @noEscape */ $block->jsonEncode($block->getDropdownOptions()) ?>,
+                        "variations": <?= /* @noEscape */ $block->jsonEncode($block->getVariations()) ?>,
+                        "form": "#finder_form_<?= $block->escapeHtml($block->getFinder()->getId());?>"
+                    }
+                }
+            }
+        }
+    }
+</script>
+<script>
+    require(['jquery', 'mage/apply/main'], function ($, main) {
+        main.apply();
+    })
+</script>
+<?php endif; ?>
+<?php endif; ?>

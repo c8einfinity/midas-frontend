@@ -1,0 +1,101 @@
+<h1><?= $block->escapeHtml($block->getData('title')) ?></h1>
+<?php
+if ($_SERVER["HTTP_HOST"] === "staging.midas.local") {
+    $ipInfo = $block->getIpInfo("156.155.231.87");
+} else {
+    $ipInfo = $block->getIpInfo();
+}
+$location = $block->getLocation($ipInfo["city"].", ".$ipInfo["country"]);
+$points = $location->results[0]->geometry->location;
+$closestStores = $block->getStoreList($points->lat, $points->lng, 100);
+?>
+<?php
+if (!defined("TINA4_SUPPRESS")) define("TINA4_SUPPRESS", true);
+require_once ("./system/index.php");
+?>
+<div class="form-group" class="col-md-12">
+    <label><b>Search</b></label>
+    <input class="form-control" type="text"  name="searchStore" placeholder="Search for Location" value="" onkeyup="searchStores(this.value)">
+</div>
+<p></p>
+<div class="row" id="searchResults">
+    <?php
+    foreach ($closestStores as $id => $closestStore) {
+        echo \Tina4\renderTemplate("storeLocation.twig", ["store" => $closestStore]);
+    }
+    ?>
+</div>
+<script>
+    function initialize() {
+        <?php
+        foreach ($closestStores as $id => $closestStore) {
+            echo "initMap{$closestStore->id}();\n";
+        }
+        ?>
+    }
+</script>
+<?php
+echo  $block->getGoogleMapsScript("initialize");
+?>
+<script>
+    var xmlHttp = null;
+
+    function parseScript(_source) {
+        var source = _source;
+        var scripts = new Array();
+
+        // Strip out tags
+        while(source.indexOf("<script") > -1 || source.indexOf("</script") > -1) {
+                var s = source.indexOf("<script");
+                var s_e = source.indexOf(">", s);
+                var e = source.indexOf("</script", s);
+                var e_e = source.indexOf(">", e);
+
+                // Add to scripts array
+                scripts.push(source.substring(s_e+1, e));
+                // Strip from source
+                source = source.substring(0, s) + source.substring(e_e+1);
+            }
+
+            // Loop through every script collected and eval it
+            for(var i=0; i<scripts.length; i++) {
+            try {
+                if (scripts[i] != '')
+                {
+                    try  {          //IE
+                        execScript(scripts[i]);
+                    }
+                    catch(ex)           //Firefox
+                    {
+                        window.eval(scripts[i]);
+                    }
+
+                    }
+                    }
+                    catch(e) {
+                        // do what you want here when a script fails
+                    if (e instanceof SyntaxError) console.log (e.message+' - '+scripts[i]);
+                    }
+                }
+                // Return the cleaned source
+                return source;
+            }
+
+            function searchStores(str) {
+                if (str.length==0) {
+                    return;
+                }
+                if (xmlHttp !== null) {
+                    xmlHttp.abort();
+                }
+                xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange=function() {
+                    if (this.readyState==4 && this.status==200) {
+                        document.getElementById("searchResults").innerHTML=this.responseText;
+                        parseScript (this.responseText);
+                    }
+                }
+                xmlHttp.open("GET","/system/api/trade/search?search="+str+"&lat=<?=$points->lat?>&lng=<?=$points->lng?>",true);
+                xmlHttp.send();
+            }
+</script>

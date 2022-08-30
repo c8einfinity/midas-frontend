@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Catalog category View layout
+ */ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Motus_Quotesystem::css/quotesystem.css"/>
+        <css src="Motus_Quotesystem::css/quotesystemcmspage.css"/>
+    </head>
+	<body>
+		<referenceContainer name="content">
+			<block class="Magento\Customer\Block\Account\AuthenticationPopup" name="ajaxlogin-popup" as="ajaxlogin-popup"
+                   before="-" template="Motus_Quotesystem::account/ajaxlogin-popup.phtml">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="ajaxLogin" xsi:type="array">
+                                <item name="component" xsi:type="string">Motus_Quotesystem/js/view/ajaxlogin-popup</item>
+                                <item name="children" xsi:type="array">
+                                    <item name="messages" xsi:type="array">
+                                        <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
+                                        <item name="displayArea" xsi:type="string">messages</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+            <block class="Motus\Quotesystem\Block\CmsBlock" name="cms.quote.grid" ifconfig="quotesystem/mot_quotesystemsetting/mot_quotesystemenabledisable" template="Motus_Quotesystem::catalog/grid.phtml" />
+		</referenceContainer>
+	</body>
+</page>

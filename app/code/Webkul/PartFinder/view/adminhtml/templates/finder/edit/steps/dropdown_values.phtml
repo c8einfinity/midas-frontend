@@ -1,0 +1,119 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div data-bind="scope: '<?= /* @noEscape */  $block->getComponentName() ?>'">
+    <h2 class="steps-wizard-title"><?= $block->escapeHtml(
+        __('Step 2: Dropdown Values')
+    ); ?></h2>
+    <div class="steps-wizard-info">
+        <span><?= $block->escapeHtml(
+            __('Select values from each dropdown to include in this part finder.')
+        );?></span>
+    </div>
+    <!-- <div data-bind="foreach: dropdownValues, sortableList: dropdownValues"> -->
+        <!-- <div class="attribute-entity"> -->
+            <fieldset class="admin__fieldset admin__fieldset-options">
+                <div class="admin__data-grid-wrap" data-role="grid-wrapper">
+                    <table class="data-grid" data-role="grid">
+                        <thead>
+                            <tr data-bind="foreach: dropdownValues, sortableList: dropdownValues">
+                                <th class="data-grid-th" data-bind="text: title"></th>
+                            </tr>
+                            <tr class="data-grid-filters" data-bind="foreach: dropdownValues, sortableList: dropdownValues">
+                                <td data-column="option_label">
+                                    <input type="text" 
+                                    value="" 
+                                    class="input-text admin__control-text no-changes"
+                                    data-bind="event: {keyup: $parent.filterDropdownValue.bind($parent)}, attr: { name: 'dropdown' + $index()}"
+                                    />
+                                </td >
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="data-grid-filters" data-bind="foreach: dropdownValues, sortableList: dropdownValues">
+                                <td>
+                                    <select data-bind="options: filterOptions,
+                                    optionsText: 'label',
+                                    optionsValue: 'id',
+                                    selectedOptions: chosenOptions,
+                                    value: 'id',
+                                    attr: {name: 'selected_option['+$parent.id+'][]', id: id}
+                                    " 
+                                    style="height: 15rem;"
+                                    size="30"
+                                    multiple="true"></select>
+                                    <fieldset class="admin__fieldset admin__fieldset-options" style="position: relative;display:flex;">
+                                        <ul class="attribute-options" data-bind="foreach: options" style="display: inline-grid;">
+                                            <li class="attribute-option" data-bind="visible: !label" style="margin-top: 10px;width: 100%;">
+                                                <div class="admin__field admin__field-create-new">
+                                                    <div class="admin__field-control">
+                                                        <input class="admin__control-text"
+                                                            name="label"
+                                                            data-bind="value: label, valueUpdate: 'keyup'"
+                                                            type="text" />
+                                                    </div>
+                                                    <button type="button"
+                                                            class="action-save"
+                                                            title="<?= $block->escapeHtml(__('Save Option')) ?>"
+                                                            data-action="save"
+                                                            data-bind="click: $parents[1].saveOption.bind($parent)">
+                                                        <span><?= $block->escapeHtml(
+                                                            __('Save Option')
+                                                        ); ?></span>
+                                                    </button>
+                                                    <button type="button"
+                                                            class="action-remove"
+                                                            title="<?= $block->escapeHtml(__('Remove Option')) ?>"
+                                                            data-action="remove"
+                                                            data-bind="click: $parents[1].removeOption.bind($parent)">
+                                                        <span><?= $block->escapeHtml(
+                                                            __('Remove Option')
+                                                        ); ?></span>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </fieldset>
+                                    <button class="action-create-new action-tertiary"
+                                            type="button"
+                                            data-action="addOption"
+                                            data-bind="click: $parent.createOption">
+                                        <span><?= $block->escapeHtml(
+                                            __('Create New Value')
+                                        ); ?></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+        <!-- </div> -->
+    <!-- </div> -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "<?= /* @noEscape */  $block->getComponentName() ?>": {
+                        "dropdownProvider": "<?= /* @noEscape */  $block->getData('config/dropdownProvider') ?>",
+                        "component": "Webkul_PartFinder/js/variations/steps/dropdown_values",
+                        "variationsComponent": "<?= /* @noEscape */ $block->getData('config/form') ?>.partfinderVariations",
+                        "appendTo": "<?= /* @noEscape */  $block->getParentComponentName() ?>",
+                        "optionsUrl": "<?= /* @noEscape */  $block->getUrl('catalog/product_attribute/getAttributes') ?>",
+                        "createOptionsUrl": "<?= /* @noEscape */  $block->getUrl('catalog/product_attribute/createOptions') ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

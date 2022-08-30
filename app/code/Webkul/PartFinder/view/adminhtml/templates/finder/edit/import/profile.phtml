@@ -1,0 +1,123 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $profiles = $block->getProfile();
+    $dropdowns = $block->getProfileDropdowns();
+?>
+<div class="steps-wizard select-attributes-block <?= /* @noEscape */ $block->getData('config/dataScope') ?>" data-role="select-profile-step">
+    <div class="select-attributes-actions" data-type="skipKO">
+        <?= /* @noEscape */  $block->getAddNewProfileButton() ?>
+    </div>
+    <div class="select-attributes-actions edit-profile-button" data-type="skipKO">
+        <?= /* @noEscape */  $block->getEditProfileButton() ?>
+    </div>
+    <div class="selected-attributes" data-bind="scope: 'profile-overview-data'">
+        <fieldset class="admin__fieldset">
+            <legend class="admin__legend">
+                <span data-bind="i18n: 'Choose Profile'"></span>
+            </legend>
+            <div class="admin__field required">
+                <label class="admin__field-label" for="CIC2ROW">
+                    <span data-bind="i18n: 'Available Profiles'"></span>
+                </label>
+                <div class="admin__field-control">
+                    <select style="width:100%;" class="admin__control-select required-entry" data-bind="options: profiles,
+                       optionsText: 'label',
+                       optionsValue: 'id',
+                       value: selected,
+                       optionsCaption: 'Select Profiles'" name="profile_id" data-form-part="import_profile_form"></select>
+                </div>
+            </div> 
+        </fieldset>
+        <fieldset class="admin__fieldset">
+            <legend class="admin__legend">
+                <span data-bind="i18n: 'Profile Overview'"></span>
+            </legend>
+            <input type="hidden" class="admin__control-text" data-form-part = 'import_profile_form' name="dropdowns" data-bind="
+                                value: profileDropdownsJson()
+                                " />
+            <fieldset style="width:70%;" class="admin__field" data-bind="foreach: { data: profileDropdowns(), as: 'dropdown' }">
+                <div class="admin__field-control">
+                    <div class="admin__field required">
+                        <label class="admin__field-label" data-bind="attr: {'for':'PROFILE_'+dropdown.record_id}">
+                            <!-- ko if: dropdown.record_id == 0 -->
+                            <span data-bind="i18n: 'Product SKU'"></span>
+                            <!-- /ko -->
+                            <!-- ko ifnot: dropdown.record_id == 0 -->
+                                <span data-bind="i18n: 'Dropdown #'+dropdown.record_id"></span>
+                            <!-- /ko -->
+                        </label>
+                        <div class="admin__field-control profile-column">
+                            <input class="admin__control-text" data-bind="
+                                attr: {
+                                    'for':'PROFILE_'+dropdown.record_id,
+                                    'name': 'dropdown['+dropdown.record_id+']['+'mapping'+']'
+                                },
+                                value: dropdown.title,
+                                enable: false
+                                " />
+                        </div>
+                    </div> 
+                </div> 
+                <div class="admin__field-control" data-bind="style: {'margin-top': dropdown.record_id == 0?0:''}">
+                    <div class="admin__field required">
+                        <label class="admin__field-label" data-bind="attr: {'for':'CSV_'+dropdown.record_id}">
+                            <span data-bind="i18n: 'CSV Column Title'"></span>
+                        </label>
+                        <div class="admin__field-control">
+                            <input class="admin__control-text" data-bind="
+                                attr: {
+                                    'for':'CSV_'+dropdown.record_id, 
+                                    'name': 'dropdown['+dropdown.record_id+']['+'csv_column'+']'
+                                },
+                                value: dropdown.column_name,
+                                enable: false
+                                "/>
+                        </div>
+                    </div> 
+                </div> 
+            </fieldset>
+        </fieldset>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "profile-overview-data": {
+                        "component": "Webkul_PartFinder/js/profile/profile_overview",
+                        "profiles": <?= /* @noEscape */ $block->jsonEncode($profiles) ?>,
+                        "dropdownsData": <?= /* @noEscape */ $block->jsonEncode($dropdowns) ?>,
+                        "multiselectName": "<?= /* @noEscape */ $block->getData('config/multiselectName') ?>",
+                        "providerName": "<?= /* @noEscape */ $block->getData('config/provider') ?>",
+                        "appendTo": "<?= /* @noEscape */  $block->getParentComponentName() ?>"
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+<script>
+    require(['jquery', 'uiRegistry', 'underscore'], function ($, registry, _) {
+        $('.remove-default-class').removeClass('action-default');
+        $('.page-actions').parent().addClass('page-main-actions')
+        $('body').trigger('contentUpdated');
+        $('.<?= /* @noEscape */ $block->getData('config/dataScope') ?>[data-role=select-profile-step]').applyBindings();
+
+        registry.async('<?= /* @noEscape */ $block->getData('config/nameStepWizard') ?>')(function (component) {
+            _.delay(component.open.bind(component), 500); // TODO: MAGETWO-50246
+        })
+    });
+</script>

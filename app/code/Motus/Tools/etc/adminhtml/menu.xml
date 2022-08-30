@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Motus_Tools::motusmenu" title="Motus" module="Motus_Tools" sortOrder="51" resource="Motus_Tools::motusmenu"/>
+	    <add id="Motus_Tools:stores" title="Manage Stores" module="Motus_Tools" sortOrder="10" action="motus/stores/index" resource="Motus_Tools::stores" parent="Motus_Tools::motusmenu"/>
+        <add id="Motus_Tools:trade" title="Manage Trade" module="Motus_Tools" sortOrder="20" action="motus/trade/index" resource="Motus_Tools::trade" parent="Motus_Tools::motusmenu"/>
+        <add id="Motus_Tools:forms" title="Manage Forms" module="Motus_Tools" sortOrder="20" action="motus/forms/index" resource="Motus_Tools::forms" parent="Motus_Tools::motusmenu"/>
+        <add id="Motus_Tools:formsdata" title="Manage Form Data" module="Motus_Tools" sortOrder="20" action="motus/formsdata/index" resource="Motus_Tools::formsdata" parent="Motus_Tools::motusmenu"/>
+        <add id="Motus_Tools:partsfinder" title="Manage Parts Finder" module="Motus_Tools" sortOrder="20" action="motus/partsfinder/index" resource="Motus_Tools::partsfinder" parent="Motus_Tools::motusmenu"/>
+
+    </menu>
+</config>

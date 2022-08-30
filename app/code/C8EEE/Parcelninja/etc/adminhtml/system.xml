@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <!--[Add carrrier to global system "carriers" group]-->
+        <section id="carriers">
+            <!--[Create group of carrier's fields with identifier]-->
+            <group id="c8eee_parcelninja" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                <!--[Carrier's label on backend]-->
+                <label>ParcelNinja Optimise</label>
+                <!--[Carrier's activate field with yes/no source model for dropdown]-->
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled for Checkout</label>
+                    <comment>Please select YES to Enable the module</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!--[Carrier's title field for storefront]-->
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <comment>Please Enter Title for Parcel Ninja Module</comment>
+                </field>
+
+                <field id="api_token" translate="label" type="obscure" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Api Token</label>
+                    <comment>Add an api key in your Parcel ninja dashboard</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="api_test" translate="label comment" type="button" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>C8EEE\Parcelninja\Block\System\Config\Button</frontend_model>
+                    <label>Test Connection</label>
+                    <comment>After adding keys save configurations then test connection</comment>
+                </field>
+                <field id='dim_width' translate='label' type='text' sortOrder='33' showInDefault='1' showInWebsite='1' showInStore='1'>
+                    <label>Default Dimension Width</label>
+                    <comment><![CDATA[Unit is Millimetre , Number or Decimal Values are allowed only]]></comment>
+                    <validate>validate-number</validate>
+                </field>
+
+                <field id='dim_length' translate='label' type='text' sortOrder='33' showInDefault='1' showInWebsite='1' showInStore='1'>
+                    <label>Default Dimension Length</label>
+                    <comment><![CDATA[Unit is Millimetre , Number or Decimal Values are allowed only]]></comment>
+                    <validate>validate-number</validate>
+                </field>
+
+                <field id='dim_height' translate='label' type='text' sortOrder='33' showInDefault='1' showInWebsite='1' showInStore='1'>
+                    <label>Default Dimension Height</label>
+                    <comment><![CDATA[Unit is Millimetre , Number or Decimal Values are allowed only]]></comment>
+                    <validate>validate-number</validate>
+                </field>
+
+                <field id='def_weight' translate='label' type='text' sortOrder='33' showInDefault='1' showInWebsite='1' showInStore='1'>
+                    <label>Default Weight</label>
+                    <comment><![CDATA[Unit is grams, Number or Decimal Values are allowed only]]></comment>
+                    <validate>validate-number</validate>
+                </field>
+				 <!--[Show Delivery Date On Frontend]-->
+                <field id="show_delivery_date" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Delivery Date/Time</label>
+                    <frontend_class>delivery-skip-hide</frontend_class>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!--[Carrier's show method if unavailable with error message activate field]-->
+                <field id="showmethod" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!--[Carrier's sort order]-->
+                <field id="debug" translate="label" type="select" sortOrder="34" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Debugging</label>
+                    <comment>Please select YES Enable the debug</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

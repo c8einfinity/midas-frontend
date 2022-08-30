@@ -1,0 +1,117 @@
+<?php /* @var $block \Magento\ConfigurableProduct\Block\Adminhtml\Product\Composite\Fieldset\Configurable */ ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $_attributes = $block->decorateArray($block->getAllowAttributes()); ?>
+<?php $_skipSaleableCheck = $block->getHelper()->getSkipSaleableCheck(); ?>
+<?php if (($_product->isSaleable() || $_skipSaleableCheck) && count($_attributes)):?>
+<fieldset id="catalog_product_composite_configure_fields_configurable" class="fieldset admin__fieldset">
+    <legend class="legend admin__legend">
+        <span><?= /* @noEscape */ __('Associated Products') ?></span>
+    </legend>
+    <div class="product-options fieldset admin__fieldset">
+        <?php foreach ($_attributes as $_attribute): ?>
+            <div class="field admin__field _required required">
+                <label class="label admin__field-label"><?=
+                    $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel($_product->getStoreId()));
+                ?></label>
+                <div class="control admin__field-control <?php
+                if ($_attribute->getDecoratedIsLast()):
+                    ?> last<?php
+                    endif; ?>">
+                    <select name="super_attribute[<?= $block->escapeHtml($_attribute->getAttributeId()) ?>]"
+                            id="attribute<?= $block->escapeHtml($_attribute->getAttributeId()) ?>"
+                            class="admin__control-select required-entry super-attribute-select">
+                        <option><?= /* @noEscape */ __('Choose an Option...') ?></option>
+                    </select>
+                    <input type="hidden" name="<?= $block->escapeHtml($_attribute->getAttributeId()) ?>" 
+                    class="hiddenattribute<?= $block->escapeHtml($_attribute->getAttributeId()) ?>" value="" />
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</fieldset>
+    <?php
+    $formData = [
+        "data" => $block->getJsonConfig()
+    ];
+    $serializedData = $block->getJsonHelper()->encode($formData);
+    ?>
+<script>
+require([
+    'jquery'
+], function($){
+    // loading all configurable product with all option
+    var config = <?= /* @noEscape */ $block->getJsonConfig() ?>;
+    var opt = config.attributes;
+    var arr = {};
+    var i = 0;
+    // disable other options
+    $('.admin__field-control select').each(function(){
+         if(i == 0) {
+            firstId = $(this).attr('id');
+        } else {
+            $(this).prop("disabled",true);
+        }
+        i++;
+    });
+    labelId = [];
+    // adding option according to selected option
+    $.each(opt, function(key,val) {
+        id = "attribute"+val.id;
+        var arr1 = {};
+            var label = {};
+        $.each(val.options, function(k,v) {
+            select = document.getElementById("attribute"+val.id);
+            select.options[select.options.length] = new Option(v.label,v.label);
+             arr1[v.label] = v.products;
+             label[v.label] = v.id;
+        });
+        labelId["attribute"+val.id] = label;
+        arr["attribute"+val.id] = arr1;
+    })
+    let intersactArr = [];
+    $("select").change(function() {
+        var currId = $(this).attr('id');
+        var currValue = $(this).attr('value');
+        if(!$(this).parent().parent().next().find("select").length){
+            $(".hidden"+currId).val(labelId[currId][currValue]);
+            return;
+        }
+        $(this).parent().parent().next().find("select").prop("disabled",false);
+        var nextId = $(this).parent().parent().next().find("select").attr('id');
+        $(this).parent().parent().next().find("select option").remove();
+        var initialSelect = $(this).parent().parent().next().find("select").attr('id');
+        var selector = document.getElementById(initialSelect)
+        selector.options[selector.options.length] = new Option("Choose an Option....","choose");
+        $.each(arr[nextId], function(k, v) {
+            var a = [];
+            $.arrayIntersect = function(a, b)
+            {
+                return $.grep(a, function(i)
+                {
+                    return $.inArray(i, b) > -1;
+                });
+            };
+            if(currId == firstId) {
+                var retArr = $.arrayIntersect(arr[currId][currValue],v);
+            } else {
+                retArr = $.arrayIntersect(intersactArr[currValue],v);
+            }
+            if(retArr.length > 0) {
+                select = document.getElementById(nextId);
+                select.options[select.options.length] = new Option(k,k);
+            }
+            $.each(retArr, function(kye, vla) {
+                a.push(vla);
+            })
+            intersactArr[k] = a;
+        })
+        dataId = 1;
+        $('.admin__field-control select option').each(function(){
+            $(this).attr('data-id',dataId);
+            dataId++;
+        });
+        $(".hidden"+currId).val(labelId[currId][currValue]);
+    })
+});
+</script>
+<?php endif;?>

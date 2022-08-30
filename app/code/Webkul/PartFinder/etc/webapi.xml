@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route method="POST" url="/V1/webkul-partfinder/partfinder">
+		<service class="Webkul\PartFinder\Api\PartfinderRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Webkul_PartFinder::Partfinder_save"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/webkul-partfinder/partfinder/search">
+		<service class="Webkul\PartFinder\Api\PartfinderRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Webkul_PartFinder::Partfinder_view"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/webkul-partfinder/partfinder/:partfinderId">
+		<service class="Webkul\PartFinder\Api\PartfinderRepositoryInterface" method="getById"/>
+		<resources>
+			<resource ref="Webkul_PartFinder::Partfinder_view"/>
+		</resources>
+	</route>
+	<route method="PUT" url="/V1/webkul-partfinder/partfinder/:partfinderId">
+		<service class="Webkul\PartFinder\Api\PartfinderRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Webkul_PartFinder::Partfinder_update"/>
+		</resources>
+	</route>
+	<route method="DELETE" url="/V1/webkul-partfinder/partfinder/:partfinderId">
+		<service class="Webkul\PartFinder\Api\PartfinderRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Webkul_PartFinder::Partfinder_delete"/>
+		</resources>
+	</route>
+</routes>

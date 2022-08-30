@@ -1,0 +1,120 @@
+<?php
+/**
+ * Copyright © CodeInfinity. All rights reserved.
+ */
+function getFooterCategoryNav()
+{
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $categoryFactory = $objectManager->create('Magento\Catalog\Helper\Category');
+    $categoryManager = $objectManager->create('Magento\Catalog\Model\CategoryRepository');
+    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+    $categoryId = 831;  //Parent Category ID
+    $subCategory = $objectManager->create('Magento\Catalog\Model\Category')->load($categoryId);
+    $categories = $subCategory->getChildrenCategories();
+    $sideMenuId = 491;
+    //$sideMenuId = 43;
+    $sideMenuSubCategory = $objectManager->create('Magento\Catalog\Model\Category')->load($sideMenuId);
+    $sideMenuCategories = $sideMenuSubCategory->getChildrenCategories();
+    $html = '    <div class="categories">';
+    foreach ($categories as $id => $category) {
+        //echo '**** ' . $category->getId() . ' ****';
+
+            $html .= '  <a href="' . $category->getUrl() . '"  />' . $category->getName() . '</a>';
+
+    }
+    $html .= '    </div>';
+    return $html;
+}
+?>
+<footer class="footer bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                <h3>About</h3>
+                <nav class="footer-links">
+                    <?php  echo $this->getLayout()
+                        ->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('footer_col_1')
+                        ->toHtml(); ?>
+                </nav>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                <h3>Privacy Compliance</h3>
+                <nav class="footer-links">
+                    <?php  echo $this->getLayout()
+                        ->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('footer_col_2')
+                        ->toHtml(); ?>
+
+                </nav>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                <h3>Shop</h3>
+                <nav class="footer-links">
+                    <?php echo getFooterCategoryNav() ?>
+                    <?php  echo $this->getLayout()
+                        ->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('footer_col_3')
+                        ->toHtml(); ?>
+
+                </nav>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                <h3>Contact Us</h3>
+                <nav class="footer-links">
+                    <strong style="color: #fff !important;">Customer Care</strong>
+                    <?php  echo $this->getLayout()
+                        ->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('footer_col_4')
+                        ->toHtml(); ?>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<footer class="footer-subscribe-social">
+    <div class="container">
+        <div class="footer-subscribe-group">
+            <div>
+                <h4 style="margin-bottom: 0 !important;">Subscribe to our Newsletter</h4>
+            </div>
+            <form class="subscribe-form" action="/newsletter/subscriber/new/" novalidate="novalidate" method="post" id="newsletter-validate-detail" >
+                <input type="email" class="form-control" name="email" id="newsletter" placeholder="Enter your email address" data-validate="{required:true, 'validate-email':true}">
+                <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+            </form>
+        </div>
+        <div class="footer-social-group">
+             <a href="https://www.facebook.com/midassouthafrica/?ref=br_rs" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCeuY-sjTip8s3SAwqcd5-6A" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<footer class="footer-bottom">
+    <div class="container">
+        <div class="footer-bottom-container">
+            <div class="footer-payment-icons">
+<!--                <img class="footer-payment-icon" src="/assets/images/midas/payments/footer-payment-paygate.svg" alt="Paygate icon" >-->
+<!--                <img class="footer-payment-icon" src="/assets/images/midas/payments/footer-payment-visa.svg" alt="Visa icon" >-->
+<!--                <img class="footer-payment-icon" src="/assets/images/midas/payments/footer-payment-mastercard.svg" alt="Mastercard icon" >-->
+<!--                <img class="footer-payment-icon" src="/assets/images/midas/payments/footer-payment-visa-verified.svg" alt="Visa Verified icon" >-->
+<!--                <img class="footer-payment-icon" src="/assets/images/midas/payments/footer-payment-mastercard-code.svg" alt="MasterCard SecureCode icon" >-->
+            </div>
+
+            <div class="footer-copyright">
+                &copy; Copyright 2021 | Motus Aftermarket Parts | All rights reserved
+            </div>
+        </div>
+    </div>
+
+</footer>
+<!--<script>
+    require(['jquery'], function ($) {
+        $('.page-header').hide();
+    });
+</script>-->

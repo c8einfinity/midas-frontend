@@ -1,0 +1,67 @@
+<!-- /**
+ * Mail template on Quote Edit
+ */ -->
+<!--@subject Quote Edit by {{var edit_by}} @-->
+{{template config_path="design/email/header_template"}}
+<table width="100%">
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Hello, "}}{{trans "%customer_name" customer_name=$receiver_name}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <p>{{trans "%quoteTitle" quoteTitle=$title}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="email-items" style="margin-bottom:20px;">
+                <thead bgcolor="#EAEAEA">
+                    <tr>
+                        <th class="item-info">{{trans "Quote Id"}}</th>
+                        <th class="item-info">{{trans "Quote Qty"}}</th>
+                        <th class="item-options">{{trans "Quote Price"}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td class="item-info">{{var quote_id|raw}}</td>
+                    <td class="item-info">{{var new_quote_qty|raw}}</td>
+                    <td class="item-options">{{var new_quote_price|raw}}</td>
+                </tbody>
+            </table>
+            <table class="email-items" style="margin-bottom:20px;">
+                <thead bgcolor="#EAEAEA">
+                    <tr>
+                        <th class="item-info">{{trans "Name"}}</th>
+                        <th class="item-info">{{trans "Sku"}}</th>
+                        {{if new_options != ""}}
+                                <th class="item-options">{{trans "Options"}}</th>
+                        {{/if}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{var product_name|raw}}
+                </tbody>
+            </table>
+            <table class="email-items" style="margin-bottom:20px;">
+                <tr bgcolor="#EAEAEA">
+                    <th class="item-info">{{trans "New message:"}}</th>
+                </tr>
+                <tr>
+                    <td class="item-info">{{var new_message |raw}}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <center>
+                <p>
+                    <strong>{{trans "Thank you"}}</strong>
+                </p>
+            </center>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

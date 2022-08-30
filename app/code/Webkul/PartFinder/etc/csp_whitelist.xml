@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="style-src">
+            <values>
+                <value id="fontawesome-4.7" type="host">https://cdnjs.cloudflare.com</value>
+                <value id="googlefoncss" type="host">https://fonts.googleapis.com/</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <value id="gstic-font" type="host">https://fonts.gstatic.com</value>
+                <value id="fontawesome-font" type="host">https://cdnjs.cloudflare.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

@@ -1,0 +1,27 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */?>
+    <?=
+/* @noEscape */  $block->getVariationWizard([
+    'products' => [],
+    'configurations' => [],
+    'addProductModal' => $block->getForm() . '.' . $block->getModal()
+]);
+?>
+<script>
+    require(['jquery', 'uiRegistry', 'underscore'], function ($, registry, _) {
+        $('body').trigger('contentUpdated');
+        $('.<?= /* @noEscape */ $block->getData('config/dataScope') ?>[data-role=steps-wizard-main]').applyBindings();
+
+        registry.async('<?= /* @noEscape */ $block->getData('config/nameStepWizard') ?>')(function (component) {
+            _.delay(component.open.bind(component), 500); // TODO: MAGETWO-50246
+        })
+    });
+</script>

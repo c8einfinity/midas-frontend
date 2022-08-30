@@ -1,0 +1,115 @@
+<?php
+/**
+ * Quote grid.
+ */
+
+?>
+<?php
+    $helper = $block->getHelper();
+    $currencySymbol = $helper->getCurrentCurrencySymbol();
+    $quotedProductsData = $helper->getQuoteDataInRegistry();
+    $showCart = (int)$helper->getConfigAddToCart();
+    $showPrice = (int)$helper->getConfigShowPrice();
+    $categoryId = $block->getRequest()->getParam('id');
+
+    if ($categoryId == "1025"){
+
+        $showCart = 1;
+        $showPrice = 1;
+    }
+?>
+<div style="display:none" id="mot-qs-ask-data">
+    <form id="quotesystem_quote_add_cat" method="post" action="<?= $block->escapeUrl($block->getUrl(
+        'quotesystem/buyerquote/savequote',
+        ['_secure' => $block->getIsSecure()]
+    ))?>">
+        <input type="hidden" name="product_name" value="" />
+        <input type="hidden" name="product" value=""/>
+        <input type="hidden" name="current_url" value="" />
+        <input type="hidden" name="quote_price" value="0" />
+        <input type="hidden" name="quote_description" value="." />
+
+         <div class="fieldset" >
+            <div>
+                <label for="quote_qty"><?= /* @noEscape */ __("Quantity"); ?> :</label>
+                <input type="text" id="quote_qty" name="quote_qty" class="quote_qty" 
+                data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                <span class="mot-qs-min-qty"></span>
+            </div>
+           <!-- <div>
+                <label for="quote_price"><? //= /* @noEscape */ __("Price per Item")."(".$currencySymbol.")"; ?> :</label>
+                <input type="text" id="quote_price" name="quote_price" class="quote_price" 
+                data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+            </div>
+            <div>
+                <label for="quote_description"><?= /* @noEscape */ __("Description"); ?> :</label>
+                <textarea id="quote_description" name="quote_description" class="quote_description" 
+                data-validate="{required:true}"></textarea>
+            </div>-->
+            <!--<div class="mot-file-field-container">
+                <label class="label mot-file-label mot-quote-primary-btn">
+                    <?php //= /* @noEscape */ __('Add Attachment(s)') ?>
+                    <input type="file" name="files" class="mot-file-field" id="mot-file-field"
+                    data-url="<?php /*= $block->escapeUrl(
+                        $block->getUrl(
+                            'quotesystem/buyerquote/fileUpload',
+                            ['_secure' => $block->getRequest()->isSecure()]
+                        )
+                    ) */?>" multiple="multiple"/>
+                </label>
+            </div>-->
+             <div class="control">
+                 <?= /* @noEscape */ __("How to receive a quote from your local Midas outlet:
+Step 1 | Choose the product and quantity that you are interested in
+Step 2 | Go to your Cart and submit the request
+Step 3 | The Midas support team will provide you with pricing on the items you requested and provide you with details on how to get the products from your closest Midas outlet.");
+                 ?>
+             </div>
+        </div>
+    </form>
+</div>
+<a class="proceed-to-checkout button primary" style="display:none">
+    <?= /* @noEscape */ __('Login') ?>
+</a>
+<script id="mot-file-field-template" type="text/x-magento-template">
+    <div class="mot-uploaded-file">
+        <span class="mot-uploaded-file-style mot-quote-primary-btn"><%- data.extension %></span>
+        <span class="mot-uploaded-file-name"><%- data.name %></span>
+        <input type="hidden" name="attachments[]" value="<%- data.file %>" class="mot-uploaded-file-value"/>
+        <span class="mot-uploaded-file-del"></span>
+    </div>
+</script>
+<script id="mot-file-field-uploader-template" type="text/x-magento-template">
+    <div id="<%- data.id %>" class="mot-uploaded-file-row">
+        <img src="<?= $block->escapeUrl($block->getViewFileUrl('Motus_Quotesystem/images/ajax-loader-big.gif'))?>"/>
+    </div>
+</script>
+
+<?php
+    
+    $formData = [
+        'quoteProductData'  =>  $quotedProductsData,
+        'productitems'      => '.product-items li',
+        'loginurl'          => $block->getUrl('customer/account/login'),
+        'popoverbackgroundhtml' =>  '#mot-qs-ask-data',
+        'popoverClass'          =>  '.popover',
+        'popOverclose'          =>  '.popover_close',
+        'categorySubmitButton'  =>  '.submit_button',
+        'maxWidth'              =>  \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH,
+        'maxHeight'             =>  \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT,
+        'fileDeleteUrl'            =>  $block->getUrl(
+            'quotesystem/buyerquote/fileDelete',
+            ['_secure' => $block->getRequest()->isSecure()]
+        ),
+        'showCart'          => $showCart,
+        'showPrice'         => $showPrice
+    ];
+    $serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "MotQuotesystem": <?= /* @noEscape */$serializedFormData; ?>
+        }
+    }
+</script>

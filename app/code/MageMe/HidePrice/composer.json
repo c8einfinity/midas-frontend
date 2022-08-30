@@ -1,0 +1,23 @@
+{
+    "name": "mageme/module-hideprice",
+    "version": "1.1.2",
+    "description": "HidePrice free Magento 2 module. Hide product prices from anonymous users.",
+    "type": "magento2-module",
+    "license": "https://mageme.com/license/",
+    "authors": [
+        {
+            "email": "support@mageme.com",
+            "name": "Mageme.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MageMe\\HidePrice\\": ""
+        }
+    }
+}

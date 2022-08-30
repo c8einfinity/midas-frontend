@@ -1,0 +1,123 @@
+.part-finder-container {
+    padding: 15px;
+    background: #f3f3f3;
+    border: 0.5px solid #c3c2c2;
+    margin-bottom: 20px;
+}
+
+.part-finder-container:after,
+.part-finder-container:before,
+.part-finder-container ul:after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.part-finder-container .field>.label {
+    font-weight: 600;
+}
+
+.part-finder-container .field.required>.label:after {
+    content: '*';
+    color: #e02b27;
+    font-size: 1.2rem;
+    margin: 0 0 0 5px;
+}
+
+.part-finder-container ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.part-finder-container li.column2 {
+    width: 32%;
+    float: left;
+    margin-right: 2%;
+}
+
+.part-finder-container li:nth-child(3n).column2 {
+    margin-right: 0;
+}
+
+@media only screen and (max-width: 599px) {
+
+    .part-finder-container li.column2,
+    .part-finder-container li.column3,
+    .part-finder-container li.column4,
+    .part-finder-container li.column5 {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+.sidebar-finder-container {
+    margin-bottom: 25px;
+    background: #f3f3f3;
+    border: 0.5px solid #c3c2c2;
+    padding: 8px;
+}
+
+.finder-form>fieldset {
+    display: inline-table;
+    margin: 0 auto;
+    position: relative;
+}
+
+.finder-form>fieldset .field {
+    margin-bottom: 25px;
+    float: left;
+    margin-right: 15px;
+}
+
+.finder-title {
+    font-size: 20px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.finder-sidebar-title {
+    font-size: 20px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+input.error,
+select.error,
+textarea.error {
+    border-color: #ed8380;
+}
+
+label.error[generated] {
+    color: #e02b27;
+    font-size: 1.2rem;
+}
+
+@media only screen and (min-width: 1069px) {
+    .finder-form>fieldset .field {
+        width: 200px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .finder-form>fieldset .field {
+        float: none;
+        clear: both;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .finder-form>fieldset {
+        display: block;
+    }
+
+    .finder-form {
+        display: block;
+    }
+
+    .finder-form>fieldset>.field:last-child,
+    .finder-form>fieldset>.fields>.field:last-child {
+        margin-bottom: 10px;
+    }
+
+}

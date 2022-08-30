@@ -1,0 +1,31 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<div class="action-select-wrap" data-bind="
+    css : {
+        '_active' : $parent.actionsListOpened() === $record().index
+    },
+    outerClick: $parent.closeList.bind($parent, $record().index)">
+    <button class="action-select" data-bind="click: function(){ $parent.toggleActionsList($record().index); }">
+        <span data-bind="i18n: 'Select'"></span>
+    </button>
+    <ul class="action-menu _active" data-bind="css: {'_active': $parent.actionsListOpened() === $record().index}">
+        <li>
+            <a class="action-menu-item" data-bind="
+                click: function(){
+                    $parent.closeList($record().index);
+                    $parent.processingDeleteRecord($record().index, $record().recordId);
+                },
+                text: $t('Remove Product')
+            "></a>
+        </li>
+    </ul>
+</div>

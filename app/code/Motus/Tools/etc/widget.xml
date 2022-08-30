@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:helloworld:Magento_Widget:etc/widget.xsd">
+    <widget class="Motus\Tools\Block\Widget\StoresLocator" id="motus_tools_storeslocator">
+        <label>Store Locator</label>
+        <description>Store Locator</description>
+        <parameters>
+            <parameter name="title" sort_order="10" visible="true" xsi:type="text">
+                <label>Title</label>
+            </parameter>
+            <parameter name="apiKey" sort_order="10" visible="true" xsi:type="text">
+                <label>API Key</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Motus\Tools\Block\Widget\TradeLocator" id="motus_tools_tradelocator">
+        <label>Trade Locator</label>
+        <description>Trade Locator</description>
+        <parameters>
+            <parameter name="title" sort_order="10" visible="true" xsi:type="text">
+                <label>Title</label>
+            </parameter>
+            <parameter name="apiKey" sort_order="10" visible="true" xsi:type="text">
+                <label>API Key</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Motus\Tools\Block\Widget\MotusContactForm" id="motus_tools_contactform">
+        <label>Motus Business Contact Form</label>
+        <description>>Motus Business Contact Form</description>
+        <parameters>
+            <parameter name="title" sort_order="10" visible="true" xsi:type="text">
+                <label>Title</label>
+            </parameter>
+            <parameter name="formName" sort_order="10" visible="true" xsi:type="text">
+                <label>Form Name</label>
+            </parameter>
+            <parameter name="subjectLine" sort_order="10" visible="true" xsi:type="text">
+                <label>Subject Line</label>
+            </parameter>
+            <parameter name="email" sort_order="20" visible="true" xsi:type="text">
+                <label>Email Address for Notifications</label>
+            </parameter>
+            <parameter name="redirectUrl" sort_order="30" visible="true" xsi:type="text">
+                <label>Redirect URL (Example: /home)</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="Motus\Tools\Block\Widget\MotusPartsFinder" id="motus_tools_partsfinder">
+        <label>Motus Parts Finder</label>
+        <description>>Motus Parts Finder</description>
+        <parameters>
+            <parameter name="title" sort_order="10" visible="true" xsi:type="text">
+                <label>Title</label>
+            </parameter>
+            <parameter name="parentCategory" sort_order="30" visible="true" xsi:type="text">
+                <label>Parent Category</label>
+            </parameter>
+        </parameters>
+    </widget>
+
+</widgets>

@@ -1,0 +1,399 @@
+<?php
+/**
+ * Quote edit at buyer end.
+ */
+
+?>
+<?php
+//edit quote at customer end.
+$params = $block->getParameters();
+$entityId = 0;
+if (array_key_exists('id', $params)) {
+    $entityId = $params["id"];
+}
+if ($entityId) {
+    $quoteHelper = $block->getHelper();
+    $showPrice = (int)$quoteHelper->getConfigShowPrice();
+    $quote = $block->getQuoteData($entityId);
+    $attachments = $quoteHelper->getQuoteAttachmentsArr($quote->getAttachments());
+    $quoteEditStatus = false;
+    if ($quote->getStatus()==\Motus\Quotesystem\Model\Quotes::STATUS_UNAPPROVED) {
+        $quoteEditStatus = true;
+    }
+    $quoteCurrency = $quote->getQuoteCurrency() ? $quote->getQuoteCurrency() : $quoteHelper->getBaseCurrencyCode();
+    $currencySymbol = $quoteHelper->getCurrencySymbol($quoteCurrency);
+    $storeCurrency = $quoteHelper->getCurrentCurrency();
+    ?>
+    <div class="mot_design block">
+        <fieldset class="fieldset info mot-fieldset">
+            <div class="grid">
+                <div class="hor-scroll">
+                    <input type="hidden"
+                        class="len"
+                        name="id"
+                        id="id"
+                        value="<?= $block->escapeHtml($entityId); ?>"
+                    />
+                    <?php   $product = $block->getProductData($quote->getProductId());
+                            $imageUrl = $block->imageHelperObj()
+                                        ->init($product, 'product_page_image_small')
+                                        ->setImageFile($product->getFile())
+                                        ->getUrl();
+                            $minqty = $block->getMinQuoteQuatity($quote->getProductId());
+                    ?>
+
+                    <table class="data-table border mot-list-table">
+                        <thead>
+                            <tr class="first last">
+                                <th rowspan="1">
+                                    <span><?= /* @noEscape */ __("Product"); ?></span>
+                                </th>
+                                <th rowspan="1">&nbsp;</th>
+                                 
+                                    <th colspan="1" class="a-right cart-price-head">
+                                        <?php if ($showPrice) {?>
+                                            <span title="<?= /* @noEscape */ __('Price After Configuration'); ?>">
+                                                <?= /* @noEscape */ __("Price"); ?>
+                                            </span>
+                                        <?php } ?>
+                                    </th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="first odd">
+                                <td class="product-cart-image">
+                                    <img alt="<?= $block->escapeHtml($product->getName()); ?>"
+                                        src="<?= $block->escapeUrl($imageUrl) ?>"
+                                    >
+                                </td>
+                                <td colspan="1" class="product-cart-info productName">
+                                    <h2 class="product-name">
+                                        <?php
+                                        if ($quoteHelper->checkProductCanShowOrNot($product)): ?>
+                                            <a href="<?= $block->escapeUrl($product->getProductUrl())?>" target="blank">
+                                            <?= $block->escapeHtml($product->getName()); ?>
+                                            </a>
+                                        <?php else: ?>
+                                            <?= $block->escapeHtml($quote->getProductName()); ?>
+                                        <?php endif;?>
+                                    </h2>
+                                    <div class="product-cart-sku">
+                                        <span class="label"><?= /* @noEscape */ __("SKU");?> : </span>
+                                        <?= $block->escapeHtml($product->getSku()); ?>
+                                    </div>
+                                    <?php
+                                        $optionAndPrice = $quoteHelper->getOptionNPrice($product, $quote);
+                                        $optionAndPriceArr = explode("~|~", $optionAndPrice);
+                                        /* @noEscape */echo '<dl class="item-options">'.
+                                            $optionAndPriceArr[0].'</dl>';
+                                    ?>
+                                </td>
+                               <!-- <td class="a-right">
+                                   
+                                        <span class="cart-price">
+                                            <span class="price">
+                                                <?php // if ($showPrice) {?>
+                                                    <?php //= /* @noEscape */ $quoteHelper->getformattedPrice(
+                                                        // $quote->getProductPrice()
+                                                    //);  ?> <?php // } ?>
+                                            </span>
+                                        </span>
+                                    
+                                </td>-->
+                            </tr>
+                            <!-- <tr class="last even">
+                                <td class="mot_quo_des" colspan="1">
+                                    <b>
+                                        <php //?= /* @noEscape */ __("Quote Description")." : "; ?>
+                                    </b>
+                                </td>
+                                <td colspan="2">
+                                    <?php //= $block->escapeHtml($quote->getQuoteDesc()); ?>
+                                </td>
+                            </tr>
+                            <tr class="last even">
+                                <td class="mot_quo_des" colspan="1">
+                                    <b>
+                                        <?php //= /* @noEscape */ __("Quote Attachments")." : "; ?>
+                                    </b>
+                                </td>
+                                <td colspan="2">
+                                    <?php /*
+                                    foreach ($attachments as $attachmentKey => $attachmentVal) {
+                                        $attachmentUrl = $quoteHelper->getMediaUrl().'motquote\files'.$attachmentKey;
+                                        ?>
+                                        <div>
+                                            <a href="<?= $block->escapeUrl($attachmentUrl)?>" 
+                                                target="blank" 
+                                                title="<?= $block->escapeHtml($attachmentVal)?>">
+                                                <?= $block->escapeHtml($attachmentVal)?>
+                                            </a>
+                                        </div>
+                                        <?php
+                                    } */?>
+                                </td>
+                            </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <?php if (count($block->getQuoteConversationCollection())) { ?>
+        <div class="mot-design block" id="mot-qs-conversations">
+            <fieldset class="fieldset info mot-fieldset">
+                <legend class="legend">
+                    <span><?= /* @noEscape */ __('Conversations:') ?></span>
+                </legend>
+            <?php foreach ($block->getQuoteConversationCollection() as $conversation) { ?>
+                <div class="mot_qs_onereply">
+                <?php if ($conversation->getSender() == $block->getCustomerId()) { ?>
+                        <span class='mot_qs_onereply_head'>
+                <?php } else { ?>
+                        <span class='mot_qs_onereply_head mot_qs_onereply_customer'>
+                <?php } ?>
+                        <span class="mot_qs_onereply_head_left">
+                    <?php
+                        $dateToFormat = $block->getFormattedTime($conversation->getCreatedAt());
+                        /* @noEscape */echo $block->formatDate(
+                            $dateToFormat,
+                            \IntlDateFormatter::MEDIUM,
+                            true
+                        );
+                    ?>
+                        </span>
+                        <span class="mot_qs_onereply_head_right">
+                        <?php
+                        if ($conversation->getSender() == 0) {
+                            /* @noEscape */echo __("Admin");
+                        } else {
+                            /* @noEscape */echo __("Me");
+                        } ?>
+                        </span>
+                    </span>
+                    <div class="mot_qs_onereply_cntnt_container">
+                        <p class="mot_qs_onereply_cntnt">
+                            <?= $block->escapeHtml($conversation->getConversation()); ?>
+                        </p>
+                        <?php
+                        $conversationAttachments = $quoteHelper->getQuoteAttachmentsArr(
+                            $conversation->getAttachments()
+                        );
+                        if (count($conversationAttachments)) { ?>
+                            <div>
+                                <b><?= /* @noEscape */ __('Uploaded files')?> : </b>
+                                <?php
+                                foreach ($conversationAttachments as $attachmentKey => $attachmentVal) {
+                                    $attachmentUrl = $quoteHelper->getMediaUrl().'motquote\files'.$attachmentKey;
+                                    ?>
+                                    <div>
+                                        <a href="<?= $block->escapeUrl($attachmentUrl)?>" 
+                                            target="blank" 
+                                            title="<?= $block->escapeHtml($attachmentVal)?>">
+                                            <?= $block->escapeHtml($attachmentVal)?>
+                                        </a>
+                                    </div>
+                                    <?php
+                                } ?>
+                            </div>
+                            <?php
+                        } ?>
+                    </div>
+                </div>
+            <?php } ?>
+            <?= /* @noEscape */ $block->getPagerHtml(); ?>
+            </fieldset>
+        </div>
+    <?php } ?>
+    <div class="mot_qs_message_container">
+        <form
+            autocomplete="off" 
+            action="<?= $block->escapeUrl($block->getUrl(
+                'quotesystem/buyerquote/updatequote'
+            )) ?>"
+            method="post"
+            id="form-quote"
+        >
+            <input
+                type="hidden"
+                class='input-text'
+                readonly='readonly'
+                value="<?= $block->escapeHtml($quote->getCustomerId()) ?>"
+                name='customer_id'
+            />
+            <input
+                type="hidden"
+                class='input-text'
+                readonly='readonly'
+                value="<?= $block->escapeHtml($quote->getProductId()) ?>"
+                name='product_id'
+            />
+
+            <input type="hidden"
+                name="minquote_quantity"
+                value="<?= $block->escapeHtml($minqty); ?>"
+            />
+            <div class="mot-design">
+                <fieldset class="fieldset info mot-fieldset">
+                    <div class="block">
+                        <div class="block-title">
+                            <strong><?= /* @noEscape */ __('Quote Detail') ?></strong>
+                        </div>
+                    </div>
+                    <?= /* @noEscape */ $block->getBlockHtml('formkey')?>
+                        <div class="field required">
+                            <label class="label"><?= /* @noEscape */ __('Quoted Price') ."(".$currencySymbol.")" ?>:
+                            </label>
+                            <div class="control">
+                                <?php
+                                $quotePrice = $quote->getQuotePrice();
+                                $price = number_format($quotePrice, 2);
+                                ?>
+                                <?php if ($quoteEditStatus) { ?>
+                                <input
+                                    disabled='disabled'
+                                    type="text"
+                                    class='required-entry required validate-number 
+                                    validate-greater-than-zero input-text'
+                                    value="<?= $block->escapeHtml($price); ?>"
+                                    name='quote_price'
+                                    id='quote_price'
+                                />
+                                <?php } else { ?>
+                                <span>
+                                    <?= $block->escapeHtml($price); ?>
+                                </span>
+                                <?php } ?>
+
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label class="label"><?= /* @noEscape */ __('Quoted Quantity') ?>:</label>
+                            <div class="control">
+                                <?php if ($quoteEditStatus) { ?>
+                                    <input
+                                    disabled='disabled'
+                                    type="text"
+                                    class='required-entry input-text required validate-number validate-greater-than-zero
+                                    validate-digits-range digits-range-<?= $block->escapeHtml($minqty)?>-'
+                                    value='<?= $block->escapeHtml($quote->getQuoteQty()) ?>'
+                                    name='quote_qty'
+                                    id='quote_qty'
+                                    />
+                                    <span class="mot-qs-min-qty"><?=
+                                                                $block->escapeHtml(
+                                                                    __('minimum quote quantity is %1', $minqty)
+                                                                ); ?></span>
+                                <?php } else { ?>
+                                    <span><?= $block->escapeHtml($quote->getQuoteQty()) ?></span>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <!--<div class="field">
+                        <label class="label"></label>
+                        <?php // if ($quoteEditStatus) { ?>
+                        <div class="mot_qs_row">
+                            <input type="checkbox" id="mot_qs_update_switch" name="quote_update_switch"/>
+                            <label for="mot_qs_update_switch">
+                                <?php //= /* @noEscape */ __("Check To Update Quote"); ?>
+                            </label>
+                        </div>
+                    <?php // } ?>
+                    </div>-->
+                    <?php if ($block->quoteStatusIsNotSold($quote->getStatus())) { ?>
+                        <input type="hidden" name="quote_id" value="<?= $block->escapeHtml($entityId);?>">
+                            <div class="field required">
+                                <label class="label"><?= /* @noEscape */ __("Enter Message") ?></label>
+                                <div class="control">
+                                    <textarea
+                                    placeholder="Write your message here"
+                                        id="mot_qs_msg_area"
+                                        type="text"
+                                        class="required-entry input-text"
+                                        name="quote_message"
+                                    ></textarea>
+                                </div>
+                            </div>
+                            <!--<div class="mot-file-field-container">
+                                <label class="label mot-file-label mot-quote-primary-btn">
+                                    <?php // = /* @noEscape */ __('Add Attachment(s)') ?>
+                                    <input type="file" name="files" class="mot-file-field" id="mot-file-field"
+                                    data-url="<?php /*=
+                                                $block->escapeUrl(
+                                                    $block->getUrl(
+                                                        'quotesystem/buyerquote/fileUpload',
+                                                        ['_secure' => $block->getRequest()->isSecure()]
+                                                    )
+                                                )  */?>" multiple="multiple"/>
+                                </label>
+                            </div>-->
+                    <?php } ?>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+    <legend class="legend" id="legend">
+        <?php if ($block->quoteStatusIsNotSold($quote->getStatus())) { ?>
+            <span></span>
+            <button class="button mot-btn"
+                title="<?= /* @noEscape */ __('Update') ?>"
+                type="submit"
+                id="save_butn"
+            >
+                <span><span><?= /* @noEscape */ __('Update') ?></span></span>
+            </button>
+        <?php } else { ?>
+            <span><?= /* @noEscape */ __('View Quote') ?></span>
+        <?php } ?>
+    </legend>
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="javascript:;"
+            onclick="javascript: window.history.back();"
+            class="left">
+            &laquo; <?= /* @noEscape */ __('Back') ?>
+            </a>
+        </p>
+    </div>
+
+    <script id="mot-file-field-template" type="text/x-magento-template">
+        <div class="mot-uploaded-file">
+            <span class="mot-uploaded-file-style mot-quote-primary-btn"><%- data.extension %></span>
+            <span class="mot-uploaded-file-name"><%- data.name %></span>
+            <input type="hidden" name="attachments[]" value="<%- data.file %>" class="mot-uploaded-file-value"/>
+            <span class="mot-uploaded-file-del"></span>
+        </div>
+    </script>
+    <script id="mot-file-field-uploader-template" type="text/x-magento-template">
+        <div id="<%- data.id %>" class="mot-uploaded-file-row">
+            <img src="<?= /* @noEscape */ $block->getViewFileUrl('Motus_Quotesystem/images/ajax-loader-big.gif')?>"/>
+        </div>
+    </script>
+    <?php
+    $formData = [
+        'quoteForm'     =>  '#form-quote',
+        'saveButton'    =>  '#save_butn',
+        'switchOption'  =>  '#mot_qs_update_switch',
+        'quotePrice'    =>  '#quote_price',
+        'price'         =>  $quotePrice,
+        'formatPrice'   =>  $price,
+        'quoteQuantity' =>  '#quote_qty',
+        'maxWidth'      =>  \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH,
+        'maxHeight'     =>  \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT,
+        'fileDeleteUrl' =>  $block->getUrl(
+            'quotesystem/buyerquote/fileDelete',
+            ['_secure' => $block->getRequest()->isSecure()]
+        )
+
+    ];
+    $serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+    ?>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "MotQuotesystem": <?= /* @noEscape */ $serializedFormData; ?>
+            }
+        }
+    </script>
+<?php }?>

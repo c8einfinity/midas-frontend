@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_catalog_product_save_entity_after">
+        <observer name="adminhtml_product_save_after" instance="Webkul\PartFinder\Observer\AdminProductSaveAfterObserver"/>
+    </event>
+    <event name="catalog_product_delete_after_done">
+        <observer name="adminhtml_product_delete_after" instance="Webkul\PartFinder\Observer\ProcessProductAfterDeleteEventObserver" />
+    </event>
+</config>

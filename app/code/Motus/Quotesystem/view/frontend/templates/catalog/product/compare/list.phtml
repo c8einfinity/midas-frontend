@@ -1,0 +1,17 @@
+<?php
+$quoteHelper = $block->getHelper();
+$showCart = (int)$quoteHelper->getConfigAddToCart();
+$showPrice = (int)$quoteHelper->getConfigShowPrice();
+$formData = [
+    'showCart'          => $showCart,
+    'showPrice'         => $showPrice
+];
+$serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "motCompareList": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

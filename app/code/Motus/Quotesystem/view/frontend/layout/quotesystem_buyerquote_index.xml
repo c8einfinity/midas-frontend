@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Buyer Quote Index.xml
+ */ -->
+<!--Display customer's quote-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="Motus_Quotesystem::css/quotesystem.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Motus\Quotesystem\Block\QuoteDetails" name="mot_quote_list" template="Motus_Quotesystem::buyer/quotes.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

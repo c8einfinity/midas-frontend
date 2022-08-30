@@ -1,0 +1,243 @@
+<?php
+/**
+ * Quote product.phtml
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+// single product page
+?>
+<?php
+// use to allow customer to quote on a product
+$product = $block->getProduct();
+$stockstatus = $block->isInStock();
+$status = $product->getQuoteStatus();
+$qty = $block->getProductQty();
+$quoteHelper = $block->getHelper();
+$currencySymbol = $quoteHelper->getCurrentCurrencySymbol();
+$showCart = (int)$quoteHelper->getConfigAddToCart();
+$showPrice = (int)$quoteHelper->getConfigShowPrice();
+
+$cats = $product->getCategoryIds();
+
+if (in_array("1025", $cats)){
+
+    $showCart = 1;
+    $status = 0;
+    $showPrice = 1;
+}
+
+if (($status == 1) && $stockstatus == 1) {
+    $minqty = 0;
+    if ($product->getMinQuoteQty()):
+        $minqty = $product->getMinQuoteQty();
+    else:
+        $minqty = $quoteHelper->getConfigMinQty();
+    endif; ?>
+    <button
+        type="button"
+        title="<?= /* @noEscape */ __("Add To Quote");?>"
+        class="mot_qs_quote_button button btn-cart action primary">
+        <span><span><?= /* @noEscape */ __("Add To Quote"); ?></span></span>
+    </button>
+    <?php
+    $finalPrice = 0;
+    if ($product->getSpecialPrice() != "") {
+        $finalPrice = $product->getSpecialPrice();
+    } else {
+        $finalPrice = $product->getPrice();
+    } ?>
+    <div class="ask-que popover_background">
+        <div id="mot-qs-ask-data">
+            <!-- <div class="modals-wrapper"> -->
+                <div tabindex="0"
+                    data-type="popup"
+                    data-role="modal"
+                    class="modal-popup modal-slide _inner-scroll mot-mp-model-popup">
+                    <div tabindex="0" data-role="focusable-start"></div>
+                    <div data-role="focusable-scope" class="modal-inner-wrap mot-qs-inner-wrap">
+                        <header class="modal-header">
+                            <h4 class="modal-title"><?= /* @noEscape */ __('Confirm Quote Details') ?></h4>
+                            <!-- <span class="mot-close" >x</span> -->
+                            <button type="button"
+                                data-role="closeBtn"
+                                class="popover_close action-close mot-close"
+                            >
+                                <span>Close</span>
+                            </button>
+                            <span  class="mot-clear" ></span>
+                        </header>
+                        <div class="modal-body form-list field required">
+                        <fieldset class="fieldset info mot-mp-fieldset">
+                            <input type="hidden"
+                                name="original_price"
+                                value="<?= $block->escapeHtml($finalPrice); ?>"
+                            />
+                            <input type="hidden"
+                                name="product_name"
+                                value="<?= $block->escapeHtml($product->getName()); ?>"
+                            />
+                            <input type="hidden"
+                                name="current_url"
+                                value="<?= $block->escapeUrl($block->getCurrentUrl()); ?>"
+                            />
+                            <input type="hidden"
+                                name="product_quantity"
+                                value="<?= $block->escapeHtml($qty); ?>"
+                            />
+                            <input type="hidden"
+                                name="quote_price"
+                                value="0"
+                            />
+                            <input type="hidden"
+                                name="quote_description"
+                                value="."
+                            />
+                            <div class="field required">
+                                <label class="label"><?= /* @noEscape */ __("Quantity"); ?> :</label>
+                                <div class="control">
+                                    <input type="text"
+                                        class="queryquestion mot-contact_input_fields
+                                        required-entry validate-digits validate-number 
+                                        validate-greater-than-zero validate-digits-range 
+                                        digits-range-<?= $block->escapeHtml($minqty)?>- quote_qty"
+                                        id="quote_qty"
+                                        name="quote_qty" value="<?php /* @escapeNotVerified */ echo $qty . " " . $block->getProductDefaultQty()  ?>"
+                                        data-validate="{required:true,
+                                            'validate-number':true,
+                                            'validate-digits':true,
+                                            'validate-greater-than-zero':true}"
+                                    />
+                                    <span class="mot-qs-min-qty">
+                                        <?php if ($minqty) {
+                                             /* @noEscape */ echo __('minimum quote quantity is %1', $minqty);
+                                        }?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="control">
+                                    <?= /* @noEscape */ __("How to receive a quote from your local Midas outlet:
+Step 1 | Choose the product and quantity that you are interested in
+Step 2 | Go to your Cart and submit the request
+Step 3 | The Midas support team will provide you with pricing on the items you requested and provide you with details on how to get the products from your closest Midas outlet.");
+                                    ?>
+                                </div>
+                            </div>
+                            <!-- <div class="field required">
+                                <label class="label">
+                                    <?php //= /* @noEscape */ __("Price per Item")."( ".$currencySymbol." )"; ?> :
+                                </label>
+                                <div class="control">
+                                    <input type="text"
+                                        class="queryquestion mot-contact_input_fields
+                                        required-entry validate-greater-than-zero validate-number quote_price"
+                                        id="quote_price"
+                                        name="quote_price"
+                                        data-validate="{required:true,
+                                            'validate-number':true,
+                                            'validate-greater-than-zero':true}"
+                                    />
+                                </div>
+                            </div> -->
+                            <!-- <div class="field required">
+                                <label class="label"><?php //= /* @noEscape */ __("Description"); ?> :</label>
+                                <div class="control">
+                                    <textarea
+                                        class="queryquestion mot-contact_input_fields required-entry quote_description"
+                                        id='quote_description'
+                                        name="quote_description"
+                                        rows="10"
+                                        data-validate="{required:true}"
+                                    ></textarea>
+                                </div>
+                            </div> -->
+                            <!--<div class="mot-file-field-container">
+                                <label class="label mot-file-label mot-quote-primary-btn">
+                                    <?php //= /* @noEscape */ __('Add Attachment(s)') ?>
+                                    <input type="file" name="files" class="mot-file-field" id="mot-file-field"
+                                    data-url="<?php /* =
+                                              $block->escapeUrl(
+                                                  $block->getUrl(
+                                                      'quotesystem/buyerquote/fileUpload',
+                                                      ['_secure' => $block->getRequest()->isSecure()]
+                                                  )
+                                              ) */?>" multiple="multiple"/>
+                                </label>
+                            </div>-->
+                        </fieldset>
+                        </div>
+                        <div class="modal-footer mot_footer">
+                            <span class="error"></span>
+                            <span class="errormail"></span>
+                            <input type="reset"
+                                value="<?= /* @noEscape */ __('Reset') ?>"
+                                id="resetbtn"
+                                class="mot-btn mot-btn_default mot_reset"
+                            />
+                            <input type="button"
+                                value="<?= /* @noEscape */ __('Submit') ?>"
+                                id="askbtn"
+                                class="submit_button mot-btn mot-btn-primary clickask"
+                            />
+                            <span class="mot-clear"></span>
+                        </div>
+                    </div>
+                    <div tabindex="0" data-role="focusable-end"></div>
+                </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <script id="mot-file-field-template" type="text/x-magento-template">
+        <div class="mot-uploaded-file">
+            <span class="mot-uploaded-file-style mot-quote-primary-btn"><%- data.extension %></span>
+            <span class="mot-uploaded-file-name"><%- data.name %></span>
+            <input type="hidden" name="attachments[]" value="<%- data.file %>" class="mot-uploaded-file-value"/>
+            <span class="mot-uploaded-file-del"></span>
+        </div>
+    </script>
+    <script id="mot-file-field-uploader-template" type="text/x-magento-template">
+        <div id="<%- data.id %>" class="mot-uploaded-file-row">
+            <img src="<?= /* @noEscape */ $block->getViewFileUrl('Motus_Quotesystem/images/ajax-loader-big.gif')?>"/>
+        </div>
+    </script>
+<?php } ?>
+<a class="proceed-to-checkout button primary" style="display:none">
+    <?= /* @noEscape */ __('Login') ?>
+</a>
+<?php
+$formData = [
+    'quoteButtonHtml'       =>  '.mot_qs_quote_button',
+    'popoverbackgroundhtml' =>  '.popover_background',
+    'productAddToCartForm'  =>  '#product_addtocart_form',
+    'saveQuoteUrl'          =>  $block->getUrl(
+        'quotesystem/buyerquote/savequote',
+        ['_secure' => $block->getIsSecure()]
+    ),
+    'quote_description'     =>  '#quote_description',
+    'quote_price'           =>  '#quote_price',
+    'quote_qty'             =>  '#quote_qty',
+    'redirectUrl'              =>  $block->getUrl('quotesystem/buyerquote/redirectAfterLogin/'),
+    'addToCartAction'       =>  '.box-tocart .actions',
+    'popOverclose'          =>  '.popover_close',
+    'submitButton'          =>  '.submit_button',
+    'paypal'                =>  '.paypal',
+    'reset'                 =>  '#resetbtn',
+    'loginurl'              =>  $block->getUrl('customer/account/'),
+    'maxWidth'              =>  \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH,
+    'maxHeight'             =>  \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT,
+    'fileDeleteUrl'         =>  $block->getUrl(
+        'quotesystem/buyerquote/fileDelete',
+        ['_secure' => $block->getRequest()->isSecure()]
+    ),
+    'showCart'          => $showCart,
+    'showPrice'         => $showPrice
+];
+$serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "MotQuotesystem": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

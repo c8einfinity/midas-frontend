@@ -1,0 +1,177 @@
+Back,Back
+"Delete Partfinder","Delete Partfinder"
+"Are you sure you want to do this?","Are you sure you want to do this?"
+"Create New Profile","Create New Profile"
+"Edit Profile","Edit Profile"
+"Save and Continue Edit","Save and Continue Edit"
+"Save Partfinder","Save Partfinder"
+[WEBSITE],[WEBSITE]
+"Dropdown Values","Dropdown Values"
+"Select Products","Select Products"
+Summary,Summary
+Save,Save
+Import,Import
+Home,Home
+"Go to Home Page","Go to Home Page"
+"Search results for: '%1'","Search results for: '%1'"
+Webkul,Webkul
+Partfinder,Partfinder
+"You deleted the Partfinder.","You deleted the Partfinder."
+"We can't find a Partfinder to delete.","We can't find a Partfinder to delete."
+"This Part finder no longer exists.","This Part finder no longer exists."
+"Edit Partfinder","Edit Partfinder"
+"New Part Finder","New Part Finder"
+"Part Finders","Part Finders"
+"Part Finder List","Part Finder List"
+"Please correct the data sent.","Please correct the data sent."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"A total of %1 record(s) have been updated.","A total of %1 record(s) have been updated."
+"Something went wrong while updating the part finder(s) status.","Something went wrong while updating the part finder(s) status."
+"This profile no longer exists.","This profile no longer exists."
+"New Profile","New Profile"
+"Something went wrong while saving the Part finder.","Something went wrong while saving the Part finder."
+"Import file not found.","Import file not found."
+"Profile dropdowns are not exist.","Profile dropdowns are not exist."
+"Column(s) ""%1"" not found in uploaded file.","Column(s) ""%1"" not found in uploaded file."
+"Import file found.","Import file found."
+"You saved the Partfinder.","You saved the Partfinder."
+"Product with sku ""%1"" does not exists","Product with sku ""%1"" does not exists"
+"Could not save the dropdownOption: %1","Could not save the dropdownOption: %1"
+"DropdownOption with id ""%1"" does not exist.","DropdownOption with id ""%1"" does not exist."
+"Could not delete the DropdownOption: %1","Could not delete the DropdownOption: %1"
+"Finder Result","Finder Result"
+"Finder was not registered","Finder was not registered"
+"Profile was not registered","Profile was not registered"
+"Could not save the partfinderDropdown: %1","Could not save the partfinderDropdown: %1"
+"Dropdown with id ""%1"" does not exist.","Dropdown with id ""%1"" does not exist."
+"Could not delete the PartfinderDropdown: %1","Could not delete the PartfinderDropdown: %1"
+Select....,Select....
+Enabled,Enabled
+Disabled,Disabled
+"Could not save the partfinderCategory: %1","Could not save the partfinderCategory: %1"
+"PartfinderCategory with id ""%1"" does not exist.","PartfinderCategory with id ""%1"" does not exist."
+"Could not delete the PartfinderCategory: %1","Could not delete the PartfinderCategory: %1"
+"Could not save the partfinderProduct: %1","Could not save the partfinderProduct: %1"
+"PartfinderProduct with id ""%1"" does not exist.","PartfinderProduct with id ""%1"" does not exist."
+"Could not delete the PartfinderProduct: %1","Could not delete the PartfinderProduct: %1"
+"Could not save the partfinder: %1","Could not save the partfinder: %1"
+"Partfinder with id ""%1"" does not exist.","Partfinder with id ""%1"" does not exist."
+"Could not delete the Partfinder: %1","Could not delete the Partfinder: %1"
+"Could not save the productSelection: %1","Could not save the productSelection: %1"
+"ProductSelection with id ""%1"" does not exist.","ProductSelection with id ""%1"" does not exist."
+"Could not delete the ProductSelection: %1","Could not delete the ProductSelection: %1"
+"Could not save the profileData: %1","Could not save the profileData: %1"
+"ProfileData with id ""%1"" does not exist.","ProfileData with id ""%1"" does not exist."
+"Could not delete the ProfileData: %1","Could not delete the ProfileData: %1"
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.title }""","Delete ""${ $.$data.title }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Are you sure you wan't to delete a ""${ $.$data.name }"" record?"
+"New Category","New Category"
+Categories,Categories
+[GLOBAL],[GLOBAL]
+Dropdowns,Dropdowns
+"Create Levels of Dropdowns. Dropdowns become dependents from top to bottom.","Create Levels of Dropdowns. Dropdowns become dependents from top to bottom."
+"Import From CSV","Import From CSV"
+"Add Option","Add Option"
+"Import from Csv","Import from Csv"
+"New Dropdown","New Dropdown"
+"Map with Attribute","Map with Attribute"
+No,No
+Yes,Yes
+"Product Attributes","Product Attributes"
+"Dropdown Label","Dropdown Label"
+Title,Title
+"Option List Sorting","Option List Sorting"
+"-- Please select --","-- Please select --"
+Required,Required
+"Alphabetically - A to Z","Alphabetically - A to Z"
+"Alphabetically - Z to A","Alphabetically - Z to A"
+"Numerically - ASC","Numerically - ASC"
+"Numerically - DESC","Numerically - DESC"
+"Add Products","Add Products"
+"Manual Products","Manual Products"
+"Add products automatically from attributes which are mapped to respective dropdowns.","Add products automatically from attributes which are mapped to respective dropdowns."
+Image,Image
+Name,Name
+SKU,SKU
+Status,Status
+Actions,Actions
+"Part Finder in Websites","Part Finder in Websites"
+"If your Magento installation has multiple websites, you can edit the scope to use the product on specific sites.","If your Magento installation has multiple websites, you can edit the scope to use the product on specific sites."
+Websites,Websites
+name,name
+"Profile Overview","Profile Overview"
+"Map dropdowns with CSV columns.","Map dropdowns with CSV columns."
+"Add Dropdowns","Add Dropdowns"
+"CSV Column Title","CSV Column Title"
+"Step 2: Dropdown Values","Step 2: Dropdown Values"
+"Select values from each dropdown to include in this part finder.","Select values from each dropdown to include in this part finder."
+"Save Option","Save Option"
+"Remove Option","Remove Option"
+"Create New Value","Create New Value"
+"Step 1: Select Products","Step 1: Select Products"
+"Selected Products:","Selected Products:"
+"Step 3: Summary","Step 3: Summary"
+"Add Products Manually","Add Products Manually"
+"Edit Configurations","Edit Configurations"
+"Download Sample Csv File","Download Sample Csv File"
+Cancel,Cancel
+Next,Next
+"Search Parts","Search Parts"
+Reset,Reset
+"%1 is disabled by admin.","%1 is disabled by admin."
+"Your search returned no results.","Your search returned no results."
+Select,Select
+"Download file","Download file"
+"Csv Sample File","Csv Sample File"
+"Finder Product Review","Finder Product Review"
+"Here are the products you're about to add in this finder.","Here are the products you're about to add in this finder."
+"Associated Products","Associated Products"
+"You created these products for this configuration.","You created these products for this configuration."
+"Disassociated Products","Disassociated Products"
+"These products are not associated.","These products are not associated."
+"Products imported successfully - please click Run button for launch","Products imported successfully - please click Run button for launch"
+Error,Error
+Retry,Retry
+" Rows found to import"," Rows found to import"
+Importing.......,Importing.......
+"Generating product variation for row ","Generating product variation for row "
+"Product variation generated","Product variation generated"
+"The process is over","The process is over"
+"Please select atleat one option from each dropdown or remove all selection.","Please select atleat one option from each dropdown or remove all selection."
+Images,Images
+Quantity,Quantity
+"Generate Products","Generate Products"
+"Dropdown values have been removed.","Dropdown values have been removed."
+"Select or Create options for all dropdowns or remove unused options.","Select or Create options for all dropdowns or remove unused options."
+"When you remove or add an product, we automatically update all configurations and you will need to recreate current configurations manually.","When you remove or add an product, we automatically update all configurations and you will need to recreate current configurations manually."
+"Please select products(s).","Please select products(s)."
+"Something went wrong.","Something went wrong."
+"Select Part Finder Type","Select Part Finder Type"
+"Viewed Finder on Content Template","Viewed Finder on Content Template"
+"Viewed Finder Sidebar Template","Viewed Finder Sidebar Template"
+ID,ID
+Thumbnail,Thumbnail
+Type,Type
+Visibility,Visibility
+Price,Price
+Profile,Profile
+"Profile Name","Profile Name"
+"Upload Csv","Upload Csv"
+"Allowed file type: csv","Allowed file type: csv"
+"Select File to Import","Select File to Import"
+Download,Download
+"Generated Products","Generated Products"
+"Parts Finder Options","Parts Finder Options"
+"Part Finder Name","Part Finder Name"
+"Enable Part Finder","Enable Part Finder"
+"Part Finder Widget Label","Part Finder Widget Label"
+"Part Finder Widget Code","Part Finder Widget Code"
+"Are you sure you want to delete selected items?","Are you sure you want to delete selected items?"
+"Delete items","Delete items"
+Enable,Enable
+Disable,Disable
+"Finder Name","Finder Name"
+"Number of Dropdowns","Number of Dropdowns"
+"Created At","Created At"

@@ -1,0 +1,195 @@
+<?= $block->getChildHtml('', true) ?>
+<div id="mot_quotesystem" class="main-col" style="display: none;">
+    <form id="mot_quotesystem_popup" method="POST" enctype="multipart/form-data" class="admin__scope-old edit-form"
+    action="<?= $block->escapeUrl($block->getUrl(
+        'quotesystem/buyerquote/savequote',
+        ['_secure' => $block->getIsSecure()]
+    ))?>">
+        <div id="product_composite_configure_messages" style="display: none;">
+            <div class="messages"><div class="message message-error error"><div></div></div></div>
+        </div>
+        <div id="product_composite_configure_form">
+            <input type="hidden" name="as_js_varname" value="iFrameResponse">
+        </div>
+        <input type="hidden" name="as_js_varname" value="iFrameResponse">
+        <input type="hidden" name="product" value="" />
+        <input type="hidden" name="customer_id" value="" />
+        <input type="hidden" name="quote_description" value="." />
+
+        <input type="hidden" name="form_key" value="<?= $block->escapeHtml($block->getFormKey()) ?>"/>
+        <div class="mot_quote_configurable_options product_composite_configure_form_fields"
+         id =product_composite_configure_form_fields></div>
+        <div class="entry-edit form-inline" >
+            <fieldset class="fieldset admin__fieldset">
+                <legend class="legend admin__legend"><?= /* @noEscape */ __("Quote Product") ?></legend>
+                <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_qty" class="label admin__field-label">
+                        <?= /* @noEscape */ __("Quantity"); ?> :
+                    </label>
+                    <div class="admin__field-control control">
+                        <input type="text" id="quote_qty" name="quote_qty" 
+                        class=" input-text admin__control-text required-entry required" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                    </div>
+                    <span class="mot-qs-min-qty"></span>
+                </div>
+                <!-- <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_price" class="label admin__field-label">
+                        <?php // = /* @noEscape */ __("Price per Item"); ?> :
+                    </label>
+                    <div class="admin__field-control control">
+                        <input type="text" id="quote_price" name="quote_price" class="admin__control-text" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                    </div>
+                </div>-->
+               <!-- <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_description" class="label admin__field-label">
+                        <?php //= /* @noEscape */ __("Description"); ?> :
+                    </label>
+                    <div class="admin__field-control control">
+                        <textarea id="quote_description" name="quote_description" class="textarea"
+                        data-validate="{required:true}"></textarea>
+                    </div>
+                </div>-->
+                <!--<div class="mot-file-field-container">
+                    <label class="label mot-file-label mot-quote-primary-btn">
+                        <?php //= /* @noEscape */ __('Add Attachment(s)') ?>
+                        <input type="file" name="files" class="mot-file-field" id="mot-file-field"
+                        data-url="<?php //= $block->escapeUrl(
+                            //$block->getUrl(
+                             //   'quotesystem/buyerquote/fileUpload',
+                             //   ['_secure' => $block->getRequest()->isSecure()]
+                            //)
+                       // ) ?>" multiple="multiple"/>
+                    </label>
+                </div>-->
+            </fieldset>
+        </div>
+    </form>
+</div>
+<div id="mot_open_modal">
+    <div id="product_composite_configure_form_fields1" class="content product-composite-configure-inner"> </div>
+</div>
+
+
+
+<!-- Form for mass quote action -->
+
+<form id="mot_quotesystem_massquote_popup" method="POST" enctype="multipart/form-data" class="admin__scope-old edit-form"
+    action="<?= $block->escapeUrl($block->getUrl(
+        'quotesystem/buyerquote/massquotesave',
+        ['_secure' => $block->getIsSecure()]
+    ))?>">
+        <div id="product_composite_configure_messages" style="display: none;">
+            <div class="messages"><div class="message message-error error"><div></div></div></div>
+        </div>
+        <div id="product_composite_configure_form">
+            <input type="hidden" name="as_js_varname" value="iFrameResponse">
+        </div>
+        <input type="hidden" name="product_ids" value=""/>
+        <input type="hidden" name="customer_id" value=""/>
+        <input type="hidden" name="form_key" value="<?= $block->escapeHtml($block->getFormKey()) ?>"/>
+
+        <div class="entry-edit form-inline" >
+            <fieldset class="fieldset admin__fieldset">
+                <legend class="legend admin__legend"><?= /* @noEscape */ __("Quote Product") ?></legend>
+                <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_qty" class="label admin__field-label">
+                        <?= /* @noEscape */ __("Quantity"); ?> :
+                    </label>
+                    <div class="admin__field-control control">
+                        <input type="text" id="quote_qty" name="quote_qty" 
+                        class=" input-text admin__control-text required-entry required" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                    </div>
+                    <span class="mot-qs-min-qty"></span>
+                </div>
+               <!-- <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_price" class="label admin__field-label">
+                        <?php //= /* @noEscape */ __("Price per Item"); ?> :
+                    </label>
+                    <div class="admin__field-control control">
+                        <input type="text" id="quote_price" name="quote_price" class="admin__control-text" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                    </div>
+                </div> -->
+                <!--<div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_description" class="label admin__field-label">
+                        <?php //= /* @noEscape */ __("Description"); ?> :
+                    </label>
+                    <div class="admin__field-control control">
+                        <textarea id="quote_description" name="quote_description" class="textarea"
+                        data-validate="{required:true}"></textarea>
+                    </div>
+                </div>-->
+                <!--<div class="mot-file-field-container">
+                    <label class="label mot-file-label mot-quote-primary-btn">
+                        <?php //= /* @noEscape */ __('Add Attachment(s)') ?>
+                        <input type="file" name="files" class="mot-file-field" id="mot-mass-file-field"
+                        data-url="<?php //= $block->escapeUrl(
+                           // $block->getUrl(
+                              //  'quotesystem/buyerquote/fileUpload',
+                             //   ['_secure' => $block->getRequest()->isSecure()]
+                           // )
+                      //  ) ?>" multiple="multiple"/>
+                    </label>
+                </div>-->
+            </fieldset>
+        </div>
+        <script id="mot-mass-file-field-template" type="text/x-magento-template">
+            <div class="mot-uploaded-file">
+                <span class="mot-uploaded-file-style mot-quote-primary-btn"><%- data.extension %></span>
+                <span class="mot-uploaded-file-name"><%- data.name %></span>
+                <input type="hidden" name="attachments[]" value="<%- data.file %>" class="mot-uploaded-file-value"/>
+                <span class="mot-uploaded-file-del"></span>
+            </div>
+        </script>
+        <script id="mot-mass-file-field-uploader-template" type="text/x-magento-template">
+            
+        </script>
+    </form>
+<script id="mot-file-field-template" type="text/x-magento-template">
+    <div class="mot-uploaded-file">
+        <span class="mot-uploaded-file-style mot-quote-primary-btn"><%- data.extension %></span>
+        <span class="mot-uploaded-file-name"><%- data.name %></span>
+        <input type="hidden" name="attachments[]" value="<%- data.file %>" class="mot-uploaded-file-value"/>
+        <span class="mot-uploaded-file-del"></span>
+    </div>
+</script>
+<script id="mot-file-field-uploader-template" type="text/x-magento-template">
+    <div id="<%- data.id %>" class="mot-uploaded-file-row">
+        <img src="<?= $block->escapehtml($block->getViewFileUrl('Motus_Quotesystem/images/ajax-loader-big.gif'))?>"/>
+    </div>
+</script>
+<?php
+    $formData = [
+        "ajaxurl" => $block->getUrl('quotesystem/buyerquote/checkproducttype', ['_secure' => $block->getIsSecure()]),
+        "optionsurl" => $block->getUrl('quotesystem/buyerquote/productoptions', ['_secure' => $block->getIsSecure()]),
+        "formkey" => $block->getFormKey(),
+        "bundleOptionsUrl" => $block->getUrl(
+            'quotesystem/buyerquote/bundleOptions',
+            ['_secure' => $block->getIsSecure()]
+        ),
+        "customOptionsUrl" => $block->getUrl(
+            'sales/order_create/configureProductToAdd',
+            ['_secure' => $block->getIsSecure()]
+        ),
+        'fileDeleteUrl'         =>  $block->getUrl(
+            'quotesystem/buyerquote/fileDelete',
+            ['_secure' => $block->getRequest()->isSecure()]
+        ),
+        'quoteUrl' => $block->getUrl(
+            'quotesystem/managequotes/index',
+            ['_secure' => $block->getRequest()->isSecure()]
+        ),
+    ];
+    $serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "MotAddquote": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>
+

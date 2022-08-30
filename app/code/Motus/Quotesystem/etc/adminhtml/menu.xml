@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+       	<add id="Motus_Quotesystem::quotesystem" title="Motus Quote System" module="Motus_Quotesystem" sortOrder="10" resource="Motus_Quotesystem::quotesystem"/>
+       	<add id="Motus_Quotesystem::quotes" title="Manage Quotes" module="Motus_Quotesystem" sortOrder="1" parent="Motus_Quotesystem::quotesystem" action="quotesystem/managequotes" resource="Motus_Quotesystem::quotes"/>
+    </menu>
+</config>

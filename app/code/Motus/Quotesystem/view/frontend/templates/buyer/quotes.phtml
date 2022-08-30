@@ -1,0 +1,204 @@
+<?php
+/**
+ * Quote list at buyer end
+ */
+?>
+ <head>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+    <?php
+    $quoteHelper = $block->getHelper();
+
+    $filter = '';
+    $filterSorting = '';
+    $filterSortingType = 'Inc';
+    $data = $block->getRequest()->getParams();
+    $baseCurrency = $quoteHelper->getBaseCurrencyCode();
+    $storeCurrency = $quoteHelper->getCurrentCurrency();
+    if ($proName = $block->getRequest()->getParam('id')) {
+        $filter = $proName != "" ? $proName : "";
+    }
+    if (isset($data['sortingStatus'])) {
+        $filterSorting = $data['sortingStatus'];
+    }
+    if (isset($data['sortingType'])) {
+        $filterSortingType = $data['sortingType'];
+    }
+
+    ?>
+ <div class="table-wrapper mot-quote-buyer-list">
+    <form action="<?=
+        $block->escapeHtml(
+            $block->getUrl(
+                'quotesystem/buyerquote/index/',
+                ['_secure' => $block->getRequest()->isSecure()]
+            )
+        )?>" method="get" id="form-productlist-filter"  name="formProductlistFilter" data-mage-init='{"validation":{}}'>
+        <table cellspacing="0" class="data table table-order-items history">
+            <thead>
+                <tr id="mot_mp_tr_heading">
+                <th scope="col" class="col quoteId">
+                    <span><?= $block->escapeHtml(__('Quote Id')) ?></span>
+                </th>
+                <th>
+                    <span>&nbsp;</span>
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-th="Quote Id" class="col productName">
+                        <input type="text" class="input-text" name="id"
+                        placeholder='<?= $block->escapeHtml(__('Search by quote id')) ?>'
+                        value="<?= $block->escapeHtml($filter)?>"/>
+                    </td>
+                    <input type="hidden" id="sortingStatus" name="sortingStatus"
+                    value="<?= $block->escapeHtml($filterSorting); ?>">
+                    <input type="hidden" id="sortingType" name="sortingType"
+                    value="<?= $block->escapeHtml($filterSortingType); ?>">
+                    <td>
+                        <button class="button" id="save" title="Save" type="submit">
+                            <span><span><span><?= $block->escapeHtml(__('Submit')) ?></span></span></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <?php if (count($block->getQuotesCollection())==0): ?>
+        <div class="fieldset mot_fieldset">
+            <div class="mot_emptymsg">
+                <?= $block->escapeHtml(__('No Quotes Available')) ?>
+            </div>
+        </div>
+    <?php else: ?>
+        <?= $block->getBlockHtml('formkey'); ?>
+            <table cellspacing="0" class="data mot_quotelist_table table table-order-items history">
+                <thead>
+                    <tr>
+                        <th scope="col" class="mot_check_first_td sort">
+                        <i class="<?= $block->escapeHtml($block->quoteId); ?>" type="quoteId"
+                            sortingType="<?= $block->escapeHtml($filterSortingType); ?>"
+                            name="quoteId" aria-hidden="true"></i>
+                            <?= $block->escapeHtml(__('Quote Id'))?>
+                        </th>
+                        <th scope="col" class="col motdate sort">
+                        <i class="<?= $block->escapeHtml($block->createdAt); ?>" type="createdAt"
+                            sortingType="<?= $block->escapeHtml($filterSortingType); ?>"
+                            name="createdAt" aria-hidden="true"></i>
+                        <span><?= $block->escapeHtml(__('Date')) ?></span>
+                        </th>
+                        <th scope="col" class="col motstore">
+                            <?= $block->escapeHtml(__('Store Name'))?>
+                        </th>
+                        <th scope="col" class="col motstatus">
+                            <?= $block->escapeHtml(__('Status'))?>
+                        </th>
+                        <th scope="col" class="col productPrice sort">
+                            <?= $block->escapeHtml(__('Total Quote Price'))?>
+                        </th>
+                        <th scope="col" class="col motactions">
+                            <?= $block->escapeHtml(__('Action'))?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 0;
+                    foreach ($block->getQuotesCollection() as $quote):
+                        $currency = $quote->getQuoteCurrency() ? $quote->getQuoteCurrency() : $baseCurrency;
+                        ?>
+                        <tr>
+                            <input type="hidden" class="id" value="<?= $block->escapeHtml($quote->getEntityId()); ?>"/>
+                            <input type="hidden" id="sortingType" name="sortingType"
+                                value="<?= $block->escapeHtml($filterSortingType); ?>">
+                            <td data-th="Quote Id" class="col body quoteId">
+                                <span class="label">
+                                <?= $block->escapeHtml($quote->getQuoteId()); ?>
+                                </span>
+                            </td>
+                            <td data-th="Date" class="col motdate">
+                                <span class="label">
+                                <?= $block->escapeHtml($block->formatDate($quote->getCreatedAt())); ?>
+                                </span>
+                            </td>
+                            <td data-th="Status" class="col motstore">
+                                <span class="label">
+                                <?= $block->escapeHtml($quote->getData('motus_store_name')); ?>
+                                </span>
+                            </td>
+                            <td data-th="Status" class="col motstatus">
+                                <span class="label">
+                                <?= $block->escapeHtml($block->getQuoteStatus($quote->getQuoteId())); ?>
+                                </span>
+                            </td>
+                            <td data-th="Product Price" class="col productPrice">
+                                <span class="label">
+                                    <input type="hidden"
+                                    class="mot_qs_quote_price"
+                                    value="<?= $block->escapeHtml($quote->getQuotePrice()); ?>">
+                                    <?= /* @noEscape */$quoteHelper->getFormatPrice(
+                                        $quoteHelper->getmotconvertCurrency(
+                                            $currency,
+                                            $storeCurrency,
+                                            $block->getTotalPrice($quote->getQuoteId())
+                                        ),
+                                        $storeCurrency
+                                    ); ?>
+                                </span>
+                            </td>
+                            <td data-th="Action" class="col motactions">
+                                <span class="label mot_action">
+                                    <span>
+                                        <a class="quote_view" aria-hidden="true"
+                                            title="<?= $block->escapeHtml(__('View Quote'))?>"
+                                            href = "<?= $block->escapeUrl($block->getUrl(
+                                        'quotesystem/buyerquote/view/',
+                                        [
+                                            'quote_id'=>$quote->getQuoteId(),
+                                            '_secure' => $block->getIsSecure()
+                                        ]
+                                    )) ?>"
+                                    login-url = "<?= $block->escapeUrl($block->getUrl('customer/account/login')); ?>"
+                                    data-type="<?=$block->escapeHtml($quote->getEntityId());?>">
+                                    <?= $block->escapeHtml(__('View Quote'))?>
+                                        </a>
+
+                                    </span>
+                                </span>
+                            </td>
+
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+    <?php endif; ?>
+</div>
+<div class="toolbar bottom">
+    <?= $block->getPagerHtml(); ?>
+</div>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="javascript:;"
+        onclick="javascript: window.history.back();"
+        class="left">&laquo; <?= $block->escapeHtml(__('Back')) ?></a>
+    </p>
+</div>
+<?php
+$formData = [
+    'quoteedit'         =>   '.quote_edit',
+    'massdelete'        =>  '#mass_delete_butn',
+    'quotecheckbox'     =>  '.quotecheckbox',
+    'massdeleteform'    =>  '#formmassdelete',
+    'selectall'         =>  '#quoteselecctall',
+    'quotestatus'       =>  '.pro_status button',
+    'customerloginUrl'  =>  $block->getUrl('customer/account/login', ['_secure' => $block->getIsSecure()])
+];
+$serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "MotQuotesystem": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <!--[Carrier's system identifier]-->
+            <c8eee_parcelninja>
+                <!--[Carrier's activate/deactivate flag default value]-->
+                <active>0</active>
+                <!--[Carrier's title default value]-->
+                <title>ParcelNinja Optimise</title>
+                <!--[Carrier's model class]-->
+                <model>C8EEE\Parcelninja\Model\Carrier</model>
+                <api_url>https://optimise.parcelninja.com/api/v2/</api_url>
+                <delivery_method>cheapest</delivery_method>
+                <dim_width>10</dim_width>
+                <dim_length>10</dim_length>
+                <dim_height>10</dim_height>
+                <def_weight>1</def_weight>
+                <show_delivery_date>0</show_delivery_date>
+                <shippingtypes>S1,S2,S3,SZ,S0</shippingtypes>
+                <!--[Error message displays on storefront if carrier's methods unavailable]-->
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+            </c8eee_parcelninja>
+        </carriers>
+    </default>
+</config>

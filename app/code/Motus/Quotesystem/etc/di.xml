@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Motus\Quotesystem\Api\Data\QuoteInterface" type="Motus\Quotesystem\Model\Quotes" />
+    <preference for="Motus\Quotesystem\Api\Data\QuoteConversationInterface" type="Motus\Quotesystem\Model\Quoteconversation" />
+    <preference for="Motus\Quotesystem\Api\QuoteRepositoryInterface" type="Motus\Quotesystem\Model\QuoteRepository" />
+    <preference for="Magento\Directory\Controller\Currency\SwitchAction" type="Motus\Quotesystem\Controller\Rewrite\Currency\SwitchAction"/>
+    <preference for="Magento\Checkout\Block\Cart\Sidebar" type="Motus\Quotesystem\Block\Rewrite\Cart\Sidebar"/>
+    <type name="Magento\Catalog\Block\Product\Compare\ListCompare">
+        <plugin name="Motus_Quotesystem::listcompare" type="Motus\Quotesystem\Plugin\Catalog\Block\Product\Compare\ListCompare" sortOrder="1" />
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mot_manage_quotes_data_source" xsi:type="string">Motus\Quotesystem\Model\ResourceModel\Quotes\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Motus\Quotesystem\Model\ResourceModel\Quotes\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mot_quotes</argument>
+            <argument name="eventPrefix" xsi:type="string">mot_quotes_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mot_quotes_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Motus\Quotesystem\Model\ResourceModel\Quotes</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Quote\Model\Quote\Item">
+        <plugin name="Motus_Quotesystem::afterRepresentProduct" type="Motus\Quotesystem\Model\Plugin\Quote\Item" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="Motus_Quotesystem::redirectAfterRegister" type="Motus\Quotesystem\Plugin\Customer\Controller\Account\CreatePost" sortOrder="1" />
+    </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="interceptAddingProductToCart" type="Motus\Quotesystem\Plugin\Checkout\Model\Cart" sortOrder="10"/>
+    </type>
+    <type name="Magento\Multishipping\Model\Checkout\Type\Multishipping">
+        <plugin name="interceptUpdatingProduct" type="Motus\Quotesystem\Plugin\Checkout\Multishipping" sortOrder="10"/>
+    </type>
+    <type name="Motus\Quotesystem\Ui\Component\MassAction\Status\QuoteOptions">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">quotesystem/managequotes/massUpdate</item>
+                <item name="paramName" xsi:type="string">quoteupdate</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translatable="true">Quote Status</item>
+                    <item name="message" xsi:type="string" translatable="true">Are you sure you want to update status of selected quotes?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- feature update -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mot_view_quotes_data_source" xsi:type="string">Motus\Quotesystem\Model\ResourceModel\QuoteDetails\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Motus\Quotesystem\Model\ResourceModel\QuoteDetails\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mot_quote_details</argument>
+            <argument name="eventPrefix" xsi:type="string">mot_quote_details_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mot_quote_details_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Motus\Quotesystem\Model\ResourceModel\QuoteDetails</argument>
+        </arguments>
+    </virtualType>
+
+    <preference for="Motus\Quotesystem\Api\QuoteDetailsRepositoryInterface" type="Motus\Quotesystem\Model\QuoteDetailsRepository" />
+	<preference for="Motus\Quotesystem\Api\Data\QuoteDetailsInterface" type="Motus\Quotesystem\Model\QuoteDetails" />
+
+    <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
+        <plugin disabled="false" name="Motuse_Quotesystem_Toolbar" sortOrder="10" type="Motus\Quotesystem\Plugin\Toolbar"/>
+    </type>
+
+</config>

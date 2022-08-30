@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_cart_update_items_after">
+        <observer name="motus_quote_cart_update_after" instance="Motus\Quotesystem\Observer\CartUpdateAfter" />
+    </event>
+    <event name="checkout_submit_all_after">
+        <observer name="motus_quote_sales_order_place_after" instance="Motus\Quotesystem\Observer\SalesOrderPlaceAfter" />
+    </event>
+    <event name="checkout_cart_product_add_after">
+        <observer name="motus_quote_cart_product_add_after" instance="Motus\Quotesystem\Observer\CartUpdateAfter" />
+    </event>
+    <event name="checkout_cart_save_after">
+        <observer name="motus_quote_sales_quote_add_item" instance="Motus\Quotesystem\Observer\CheckoutCartSaveafter" />
+    </event>
+    <event name="sales_quote_add_item">
+        <observer name="motus_quote_add_item" instance="Motus\Quotesystem\Observer\SalesQuoteAddItem" />
+    </event>
+    <!-- controller predispatch checkour cart index -->
+    <event name="controller_action_predispatch_checkout_cart_index">
+        <observer name="motus_quotesystem_predispatch_checkout_cart" instance="Motus\Quotesystem\Observer\CheckoutCartPredispatch" />
+    </event>
+    <!-- checkout index index controller pre dispatch -->
+    <event name="controller_action_predispatch_checkout_index_index">
+        <observer name="motus_quotesystem_predispatch_checkout_index" instance="Motus\Quotesystem\Observer\CheckoutIndexPredispatch" />
+    </event>
+    <event name="controller_action_postdispatch_adminhtml_system_config_save">
+        <observer name="quotesystem_config_save_observer" instance="Motus\Quotesystem\Observer\PostDispatchConfigSaveObserver"/>
+    </event>
+</config>

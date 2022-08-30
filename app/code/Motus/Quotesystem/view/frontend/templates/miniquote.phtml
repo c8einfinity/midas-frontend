@@ -1,0 +1,71 @@
+<?php
+
+
+/** @var $block \Motus\Quotesystem\Block\Rewrite\Cart\Sidebar */
+?>
+<?php if ($block->isCustomerLoggedIn()) { ?>
+<div data-block="miniquote" class="minicart-wrapper">
+    <a class="action mot_showquote" href="<?= $block->escapeUrl($block->getShoppingCartUrl()) ?>"
+       data-bind="scope: 'quote_content'">
+        <span class="text"><?= $block->escapeHtml(__('Quote')) ?></span>
+        <span class="mot-counter qty empty"
+              data-bind="css: 
+              { empty: !!getCartParam('summary_count') == false 
+                && !isLoading() },
+               blockLoader: isLoading">
+              <span class="mot-counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
+            <span class="mot-counter-label">
+            <!-- ko if: getCartParam('summary_count') -->
+                <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                <!-- ko i18n: 'items' --><!-- /ko -->
+            <!-- /ko -->
+            </span>
+        </span>
+    </a>
+    <?php if ($block->getIsNeedToDisplaySideBar()):?>
+        <div class="block block-minicart"
+             data-role="dropdownDialog"
+             data-mage-init='{"dropdownDialog":{
+                "appendTo":"[data-block=miniquote]",
+                "triggerTarget":".mot_showquote",
+                "timeout": "2000",
+                "closeOnMouseLeave": false,
+                "closeOnEscape": true,
+                "triggerClass":"active",
+                "parentClass":"active",
+                "buttons":[]}}'>
+            <div id="minicart-content-wrapper" data-bind="scope: 'quote_content'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <?= $block->getChildHtml('minicart.addons') ?>
+        </div>
+    <?php else:?>
+        <script>
+            require(['jquery'], function ($) {
+                $('a.action.showcart').click(function() {
+                    $(document.body).trigger('processStart');
+                });
+            });
+        </script>
+    <?php endif ?>
+    <script>
+        window.quote = <?= /* @noEscape */ $block->getSerializedQuoteConfig() ?> ;
+    </script>
+    <script type="text/x-magento-init">
+    {
+        "[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?=
+                                            $block->escapeJs(
+                                                $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
+                                            ) ?>"
+        }
+    }
+    </script>
+</div>
+
+<?php } ?>
+
+

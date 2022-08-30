@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Webkul\PartFinder\Ui\DataProvider\Finder\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="categories" xsi:type="array">
+                    <item name="class" xsi:type="string">Webkul\PartFinder\Ui\DataProvider\Finder\Form\Modifier\Categories</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+                <item name="websites" xsi:type="array">
+                    <item name="class" xsi:type="string">Webkul\PartFinder\Ui\DataProvider\Finder\Form\Modifier\Websites</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+                <item name="dropdowns" xsi:type="array">
+                    <item name="class" xsi:type="string">Webkul\PartFinder\Ui\DataProvider\Finder\Form\Modifier\Dropdowns</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                </item>
+                <item name="products" xsi:type="array">
+                    <item name="class" xsi:type="string">Webkul\PartFinder\Ui\DataProvider\Finder\Form\Modifier\Products</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Webkul\PartFinder\Model\Partfinder\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Webkul\PartFinder\Ui\DataProvider\Finder\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\PartFinder\Ui\DataProvider\Finder\Form\Modifier\Products">
+        <arguments>
+            <argument name="formName" xsi:type="string">webkul_partfinder_partfinder_form</argument>
+            <argument name="dataScopeName" xsi:type="string">webkul_partfinder_partfinder_form.webkul_partfinder_partfinder_form</argument>
+            <argument name="dataSourceName" xsi:type="string">webkul_partfinder_partfinder_form.partfinder_form_data_source</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\PartFinder\Model\Partfinder\Profile\Edit\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Webkul\PartFinder\Ui\DataProvider\Profile\Edit\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <virtualType name="Webkul\PartFinder\Ui\DataProvider\Profile\Edit\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="dropdowns" xsi:type="array">
+                    <item name="class" xsi:type="string">Webkul\PartFinder\Ui\DataProvider\Profile\Form\Modifier\Dropdowns</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Webkul\PartFinder\Ui\DataProvider\Finder\FinderDataProvider">
+        <arguments>
+            <argument name="addFieldStrategies" xsi:type="array">
+                <item name="websites" xsi:type="object">Webkul\PartFinder\Ui\DataProvider\Finder\AddWebsitesFieldToCollection</item>
+            </argument>
+            <!-- <argument name="addFilterStrategies" xsi:type="array">
+                <item name="websites" xsi:type="object">Webkul\PartFinder\Ui\DataProvider\Finder\FilterWebsitesFieldToCollection</item>
+            </argument> -->
+            <argument name="collectionFactory" xsi:type="object">\Webkul\PartFinder\Model\ResourceModel\Partfinder\CollectionFactory</argument>
+        </arguments>
+    </type>
+</config>

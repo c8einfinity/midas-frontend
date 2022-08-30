@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<!-- 
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">import_profile_edit_form.import_profile_edit_form_data_source</item>
+            <item name="namespace" xsi:type="string">import_profile_edit_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="childrenFromMeta" xsi:type="boolean">true</item>
+    </argument>
+	<settings>
+        <buttons>
+            <button name="save" class="Webkul\PartFinder\Block\Adminhtml\Profile\Edit\Button\CreateProfile"/>
+        </buttons>
+        <dataScope>data</dataScope>
+        <ajaxSaveType>simple</ajaxSaveType>
+        <deps>
+            <dep>import_profile_edit_form.import_profile_edit_form_data_source</dep>
+        </deps>
+    </settings>
+	<dataSource name="import_profile_edit_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="Webkul\PartFinder\Model\Partfinder\Profile\Edit\DataProvider" name="import_profile_edit_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label translate="true">Profile</label>
+        </settings>
+        <field name="name" sortOrder="30" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Profile Name</label>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+</form>

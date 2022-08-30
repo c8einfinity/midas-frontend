@@ -1,0 +1,70 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var \Magento\Catalog\Pricing\Render\FinalPriceBox $block */
+
+/** ex: \Magento\Catalog\Pricing\Price\RegularPrice */
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $priceModel */
+$priceModel = $block->getPriceType('regular_price');
+/** ex: \Magento\Catalog\Pricing\Price\FinalPrice */
+/** @var \Magento\Framework\Pricing\Price\PriceInterface $finalPriceModel */
+$finalPriceModel = $block->getPriceType('final_price');
+$idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
+$schema = ($block->getZone() == 'item_view') ? true : false;
+$_product = $block->getPriceType('final_price')->getProduct();
+$categories = $_product->getAvailableInCategories();
+require_once "./app/design/frontend/CodeInfinity/Midas/stock.php";
+global $productPromotionCategory;
+if (!empty($productList) && !empty($productList[$_product->getSku()]) || in_array($productPromotionCategory, $categories) ) {
+?>
+<?php if ($block->hasSpecialPrice()) :?>
+    <span class="special-price">
+        <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
+            'display_label'     => __('Special Price'),
+            'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+            'price_type'        => 'finalPrice',
+            'include_container' => true,
+            'schema' => $schema
+        ]); ?>
+    </span>
+    <span class="old-price">
+        <?= /* @noEscape */ $block->renderAmount($priceModel->getAmount(), [
+            'display_label'     => __('Regular Price'),
+            'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+            'price_type'        => 'oldPrice',
+            'include_container' => true,
+            'skip_adjustments'  => true
+        ]); ?>
+    </span>
+<span style="font-size: 15px; font-weight: 600!important; color: black;white-space: nowrap;">Exclusive Online Price</span>
+<?php else :?>
+    <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
+        'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+        'price_type'        => 'finalPrice',
+        'include_container' => true,
+        'schema' => $schema
+    ]); ?>
+<span style="font-size: 15px; font-weight: 600!important; color: black;white-space: nowrap;">Exclusive Online Price</span>
+<?php endif; ?>
+
+<?php if ($block->showMinimalPrice()) :?>
+    <?php if ($block->getUseLinkForAsLowAs()) :?>
+        <a href="<?= $block->escapeUrl($block->getSaleableItem()->getProductUrl()) ?>" class="minimal-price-link">
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
+        </a>
+    <?php else :?>
+        <span class="minimal-price-link">
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
+        </span>
+    <?php endif?>
+    <span style="font-size: 15px; font-weight: 600!important; color: black;white-space: nowrap;">Exclusive Online Price</span>
+<?php endif;?>
+<?php
+} else {
+
+}
+?>

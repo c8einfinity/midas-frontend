@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!-- 
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:helloworld:Magento_Widget:etc/widget.xsd">
+	<widget class="Webkul\PartFinder\Block\Widget\Partfinder" id="part_finder_widget">
+		<label>Parts Finder</label>
+		<description/>
+		<parameters>
+			<parameter name="finder_id" xsi:type="select" required="true" source_model="Webkul\PartFinder\Model\Partfinder\Source\FinderList" visible="true" sort_order="0" >
+                <label translate="true">Select Part Finder Type</label>
+                <description>select part finder type</description>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true" sort_order="20">
+                <label>Template</label>
+                <options>
+                    <option name="content" value="partfinder/widget/viewed/content.phtml" selected="true">
+                        <label translate="true">Viewed Finder on Content Template</label>
+                    </option>
+                    <option name="sidebar" value="partfinder/widget/viewed/sidebar.phtml">
+                        <label translate="true">Viewed Finder Sidebar Template</label>
+                    </option>
+                </options>
+            </parameter>
+		</parameters>
+        <containers>
+            <container name="sidebar.main">
+                <template name="default" value="sidebar" />
+            </container>
+            <container name="content">
+                <template name="content" value="content" />
+            </container>
+        </containers>
+	</widget>
+</widgets>

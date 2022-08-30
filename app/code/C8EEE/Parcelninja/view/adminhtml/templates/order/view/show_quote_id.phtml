@@ -1,0 +1,17 @@
+<?php $_order = $block->getOrder() ?>
+<div class="admin__page-section-item order-shipping-method">
+    <div class="admin__page-section-item-title">
+        <span class="title">Shipping & Handling Information</span>
+    </div>
+    <div class="admin__page-section-item-content">
+        <strong><?= $block->escapeHtml($_order->getShippingDescription()); ?></strong>
+
+        <?= /* @noEscape */
+        $_order->formatPrice($_order->getShippingAmount()) ?>
+    </div>
+    <div class="admin__page-section-item-content">
+        <?php if ($_order->getData('pn_quote_id')) : ?>
+            <span class="pn_quote_id"><strong>Parcel Ninja Quote Id - </strong><?= $block->escapeHtml($_order->getData('pn_quote_id')); ?></span>
+        <?php endif ?>
+    </div>
+</div>

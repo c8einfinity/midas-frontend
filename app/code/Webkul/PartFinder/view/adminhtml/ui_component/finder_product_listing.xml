@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_PartFinder
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">finder_product_listing.finder_product_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>product_columns</spinner>
+        <deps>
+            <dep>finder_product_listing.finder_product_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="finder_product_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="cacheRequests" xsi:type="boolean">false</param>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Webkul_PartFinder::Partfinder</aclResource>
+        <dataProvider class="Webkul\PartFinder\Ui\DataProvider\Product\ProductDataProvider" name="finder_product_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <settings>
+                <childDefaults>
+                    <param name="imports" xsi:type="array">
+                        <item name="visible" xsi:type="string">finder_product_listing.finder_product_listing.product_attributes_columns:${ $.index }.visible</item>
+                    </param>
+                    <param name="provider" xsi:type="string">finder_product_listing.finder_product_listing.listing_top.listing_filters</param>
+                </childDefaults>
+                <statefull>
+                    <property name="applied" xsi:type="boolean">false</property>
+                </statefull>
+            </settings>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="product_columns">
+        <selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
+            <settings>
+                <altField>name</altField>
+                <hasPreview>1</hasPreview>
+                <addField>true</addField>
+                <label translate="true">Thumbnail</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="name" class="Magento\ConfigurableProduct\Ui\Component\Listing\AssociatedProduct\Columns\Name" sortOrder="30">
+            <settings>
+                <addField>true</addField>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+        <column name="type_id" component="Magento_Ui/js/grid/columns/select" sortOrder="40">
+            <settings>
+                <options class="Magento\Catalog\Model\Product\Type"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Type</label>
+            </settings>
+        </column>
+        <column name="sku" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SKU</label>
+            </settings>
+        </column>
+        <column name="visibility" component="Magento_Ui/js/grid/columns/select" sortOrder="80">
+            <settings>
+                <addField>true</addField>
+                <options class="Magento\Catalog\Model\Product\Visibility"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Visibility</label>
+            </settings>
+        </column>
+        <column name="price" class="Magento\ConfigurableProduct\Ui\Component\Listing\AssociatedProduct\Columns\Price" sortOrder="70">
+            <settings>
+                <addField>true</addField>
+                <filter>textRange</filter>
+                <label translate="true">Price</label>
+            </settings>
+        </column>
+        <column name="qty" sortOrder="80">
+            <settings>
+                <addField>true</addField>
+                <filter>textRange</filter>
+                <label translate="true">Quantity</label>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="100">
+            <settings>
+                <addField>true</addField>
+                <options class="Magento\Catalog\Model\Product\Attribute\Source\Status"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

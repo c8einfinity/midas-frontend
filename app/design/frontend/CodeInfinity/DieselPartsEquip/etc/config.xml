@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+<policies>
+    <policy id="script-src">
+        <values>
+            <value id="devdocs-base" type="host">https://devdocs.magento.com</value>
+            <value id="magento" type="host">https://magento.com</value>
+            <value id="jquery" type="host">https://code.jquery.com</value>
+            <value id="fontawesome" type="host">https://use.fontawesome.com</value>
+        </values>
+    </policy>
+</policies>
+</csp_whitelist>
