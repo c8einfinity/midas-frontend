@@ -14,10 +14,24 @@
                 </arguments>
             </block>
         </referenceContainer>
-        <referenceContainer name="footer">
+
+        <referenceBlock name="register-link">
+            <arguments>
+                <argument name="label" xsi:type="string" translate="true">Sign in or Create an Account</argument></arguments>
+        </referenceBlock>
+
+        <referenceContainer name="footer" remove="true">
             <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" after="footer_links" template="Magento_Store::switch/stores.phtml"/>
         </referenceContainer>
+        <referenceContainer name="footer-container" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
         <referenceBlock name="report.bugs" remove="true"/>
+
         <move element="copyright" destination="before.body.end"/>
+
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Theme\Block\Html\Header" name="dp_footer" template="Magento_Theme::dp_footer.phtml"  />
+        </referenceContainer>
+
     </body>
 </page>

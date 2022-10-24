@@ -1,0 +1,59 @@
+<footer class="dp-footer">
+    <div class="dp-footer-container" style="background: var(--dp-blue); color: #fff;">
+        <div class="dp-footer-main-container page-main">
+            <div class="col">
+                <h2 class="mt-0">ABOUT</h2>
+                <?php  echo $this->getLayout()
+                    ->createBlock('Magento\Cms\Block\Block')
+                    ->setBlockId('dp_footer_col_1')
+                    ->toHtml(); ?>
+                <h2>LET'S CONNECT</h2>
+                <a href="https://www.facebook.com/Dieselparts01" target="_blank" class="dp-footer-social">
+                    <img class="dp-footer-payment-icon" src="/pub/media/dieselparts/icon-fb.png" alt="Instant EFT Logo" style="width: 12px;"/>
+                </a>
+            </div>
+            <div class="col">
+                <h2 class="mt-0">HELP</h2>
+                <?php  echo $this->getLayout()
+                    ->createBlock('Magento\Cms\Block\Block')
+                    ->setBlockId('dp_footer_col_2')
+                    ->toHtml(); ?>
+            </div>
+            <div class="col">
+                <h2 class="mt-0">SHOP</h2>
+                <?php  echo $this->getLayout()
+                    ->createBlock('Magento\Cms\Block\Block')
+                    ->setBlockId('dp_footer_col_3')
+                    ->toHtml(); ?>
+            </div>
+            <div class="col col--contact">
+                <h2 class="mt-0">CONTACT US</h2>
+                <p><strong>Customer Care</strong></p>
+                <?php  echo $this->getLayout()
+                    ->createBlock('Magento\Cms\Block\Block')
+                    ->setBlockId('dp_footer_col_4')
+                    ->toHtml(); ?>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<footer class="dp-footer">
+    <div class="dp-footer-copyright-container" style="background: #EBEBEB; color: var(--dp-blue);">
+        <div class="page-main">
+            <div class="dp-copyright">&copy; Copyright |
+                <script>
+                    var CurrentYear = new Date().getFullYear()
+                    document.write(CurrentYear)
+                </script>
+                All rights reserved | Diesel Parts & Equipment
+            </div>
+            <div class="dp-payments">
+                <img class="dp-footer-payment-icon" src="/pub/media/dieselparts/payment-icon-eft.png" alt="Instant EFT Logo" />
+                <img class="dp-footer-payment-icon" src="/pub/media/dieselparts/payment-logo-visa.png" alt="VISA Logo" />
+                <img class="dp-footer-payment-icon" src="/pub/media/dieselparts/payment-logo-mastercard.png" alt="Mastercar Logo" />
+                <img class="dp-footer-payment-icon" src="/pub/media/dieselparts/payment-logo-mobicred.png" alt="Mobicred Logo" />
+            </div>
+        </div>
+    </div>
+</footer>
