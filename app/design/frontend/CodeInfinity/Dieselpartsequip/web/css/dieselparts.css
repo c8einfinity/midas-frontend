@@ -828,3 +828,41 @@ label.sorter-label, .toolbar-amount, .field.limiter label, .field.limiter span {
   font-family: var(--ff-montserrat);
   color: var(--dp-red);
 }
+
+.product-info-main .product-reviews-summary {
+  float: none;
+}
+
+.product-info-main .product-reviews-summary a {
+  color: var(--dp-blue);
+}
+
+.product-info-main .product-reviews-summary a:hover {
+  color: var(--dp-blue);
+}
+
+.product-info-main .product-reviews-summary a:before {
+  content: "\f044";
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-rendering: auto;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 5px;
+  scale: 1.2;
+}
+
+
+.fotorama__thumb-border {
+  border: 1px solid var(--dp-red);
+}
